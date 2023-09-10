@@ -6,4 +6,40 @@
     android:layout_height="match_parent"
     tools:context=".CalendarActivity">
 
+    <LinearLayout
+        android:id="@+id/bottomNav"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageView
+            android:id="@+id/calendarImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/ic_calendar_foreground"
+            app:tint="@color/iconColor" />
+
+        <ImageView
+            android:id="@+id/lotusImageView"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:scaleX="2"
+            android:scaleY="2"
+            android:translationY="5dp"
+            app:srcCompat="@drawable/lotusicon" />
+
+        <ImageView
+            android:id="@+id/settingsImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/ic_settings_foreground"
+            app:tint="@color/iconColor" />
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
