@@ -1,0 +1,106 @@
+{
+  "project_info": {
+    "project_number": "626688598218",
+    "firebase_url": "https://hbcac-backend-default-rtdb.firebaseio.com",
+    "project_id": "hbcac-backend",
+    "storage_bucket": "hbcac-backend.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:626688598218:android:5053eba004d89921019433",
+        "android_client_info": {
+          "package_name": "com.example.firebasetest"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBLVXgGh5q8TeydJb-OQ_l9u4WaqoRrAwQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:626688598218:android:1de1d73b7864f6e8019433",
+        "android_client_info": {
+          "package_name": "com.example.habytauth"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBLVXgGh5q8TeydJb-OQ_l9u4WaqoRrAwQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:626688598218:android:cc9d22f89ff56442019433",
+        "android_client_info": {
+          "package_name": "com.example.habytauthfinal"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBLVXgGh5q8TeydJb-OQ_l9u4WaqoRrAwQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:626688598218:android:87793fc25dee5e3a019433",
+        "android_client_info": {
+          "package_name": "com.example.hbcac"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBLVXgGh5q8TeydJb-OQ_l9u4WaqoRrAwQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:626688598218:android:f78bfcbd809b23a0019433",
+        "android_client_info": {
+          "package_name": "edu.umass.hbcacmockup"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBLVXgGh5q8TeydJb-OQ_l9u4WaqoRrAwQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
