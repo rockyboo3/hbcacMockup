@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".HomePage">
+
+    <VideoView
+        android:id="@+id/bgVideoView"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ProgressBar
+        android:id="@+id/stepsProgressBar"
+        style="@style/CircularDeterminateProgressBarPink"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:progress="60" />
+
+    <TextView
+        android:id="@+id/stepsProgressText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:textAlignment="center"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/stepsProgressBar"
+        app:layout_constraintEnd_toEndOf="@+id/stepsProgressBar"
+        app:layout_constraintStart_toStartOf="@+id/stepsProgressBar"
+        app:layout_constraintTop_toTopOf="@+id/stepsProgressBar"
+        tools:text="60%" />
+
+    <ProgressBar
+        android:id="@+id/waterProgressBar"
+        style="@style/CircularDeterminateProgressBarBlue"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginLeft="24dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/stepsProgressBar"
+        tools:progress="60" />
+
+    <TextView
+        android:id="@+id/waterProgressText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/waterProgressBar"
+        app:layout_constraintEnd_toEndOf="@+id/waterProgressBar"
+        app:layout_constraintStart_toStartOf="@+id/waterProgressBar"
+        app:layout_constraintTop_toTopOf="@+id/waterProgressBar"
+        tools:text="60%" />
+
+    <ProgressBar
+        android:id="@+id/sleepProgressBar"
+        style="@style/CircularDeterminateProgressBarOrange"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginLeft="24dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/waterProgressBar"
+        tools:progress="60" />
+
+    <TextView
+        android:id="@+id/sleepProgressText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/sleepProgressBar"
+        app:layout_constraintEnd_toEndOf="@+id/sleepProgressBar"
+        app:layout_constraintStart_toStartOf="@+id/sleepProgressBar"
+        app:layout_constraintTop_toTopOf="@+id/sleepProgressBar"
+        tools:text="60%" />
+
+    <ProgressBar
+        android:id="@+id/veggiesProgressBar"
+        style="@style/CircularDeterminateProgressBarGreen"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginLeft="24dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sleepProgressBar"
+        tools:progress="60" />
+
+    <TextView
+        android:id="@+id/veggiesProgressText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/veggiesProgressBar"
+        app:layout_constraintEnd_toEndOf="@+id/veggiesProgressBar"
+        app:layout_constraintStart_toStartOf="@+id/veggiesProgressBar"
+        app:layout_constraintTop_toTopOf="@+id/veggiesProgressBar"
+        tools:text="60%" />
+
+    <Button
+        android:id="@+id/feedButton"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:backgroundTint="@color/foodButton"
+        android:text="@string/feed"
+        android:textSize="20sp"
+        app:cornerRadius="100dp"
+        app:layout_constraintBottom_toTopOf="@+id/foodAvailableTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/todayProgressTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginBottom="20dp"
+        android:text="@string/todayProgress"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNav"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/foodAvailableTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="40dp"
+        android:layout_marginBottom="20dp"
+        android:text="@string/foodAvail"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNav"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/bottomNav"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageView
+            android:id="@+id/calendarImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/ic_calendar_foreground"
+            app:tint="@color/iconColor" />
+
+        <ImageView
+            android:id="@+id/lotusImageView"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:scaleX="2"
+            android:scaleY="2"
+            android:translationY="5dp"
+            app:srcCompat="@drawable/lotusicon" />
+
+        <ImageView
+            android:id="@+id/settingsImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/ic_settings_foreground"
+            app:tint="@color/iconColor" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

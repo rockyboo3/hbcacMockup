@@ -29,6 +29,12 @@
         <activity
             android:name=".MainActivity"
             android:exported="false"/>
+        <activity
+            android:name=".Register"
+            android:exported="false"/>
+        <activity
+            android:name=".HomePage"
+            android:exported="false"/>
     </application>
 
 </manifest>
