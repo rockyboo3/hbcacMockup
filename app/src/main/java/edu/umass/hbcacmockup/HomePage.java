@@ -12,6 +12,9 @@ import android.widget.VideoView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 public class HomePage extends AppCompatActivity {
     private int stepsProgress = 0;
     private int waterProgress = 0;
@@ -35,10 +38,21 @@ public class HomePage extends AppCompatActivity {
     private VideoView mVideoView;
     ImageView settings;
     ImageView calendar;
+    FirebaseUser user;
+    FirebaseAuth auth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        auth = FirebaseAuth.getInstance();
+        user = auth.getCurrentUser();
+        if (user == null){
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
         setContentView(R.layout.activity_home_page);
 
 

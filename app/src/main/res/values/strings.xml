@@ -3,4 +3,5 @@
     <string name="feed">FEED</string>
     <string name="foodAvail">Food Available: 5</string>
     <string name="todayProgress">Today: </string>
+    <string name="logout">Logout</string>
 </resources>
