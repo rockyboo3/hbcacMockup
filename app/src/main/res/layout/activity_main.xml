@@ -7,7 +7,7 @@
     tools:context=".MainActivity">
 
     <VideoView
-        android:id="@+id/bgVideoView"
+        android:id="@+id/backgroundVideo"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -157,6 +157,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:onClick="goCalendar"
             app:srcCompat="@drawable/ic_calendar_foreground"
             app:tint="@color/iconColor" />
 
@@ -175,6 +176,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:onClick="goSettings"
             app:srcCompat="@drawable/ic_settings_foreground"
             app:tint="@color/iconColor" />
     </LinearLayout>

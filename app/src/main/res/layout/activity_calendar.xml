@@ -28,6 +28,7 @@
             android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:onClick="goMain"
             android:scaleX="2"
             android:scaleY="2"
             android:translationY="5dp"
@@ -38,8 +39,58 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:onClick="goSettings"
             app:srcCompat="@drawable/ic_settings_foreground"
             app:tint="@color/iconColor" />
     </LinearLayout>
+
+    <CalendarView
+        android:id="@+id/calendarView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteX="27dp"
+        tools:layout_editor_absoluteY="53dp" />
+
+    <TextView
+        android:id="@+id/howDoYouFeel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="How Do You Feel Today?"
+        tools:layout_editor_absoluteX="129dp"
+        tools:layout_editor_absoluteY="403dp" />
+
+    <TextView
+        android:id="@+id/areYouImproving"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Are You Improving?"
+        tools:layout_editor_absoluteX="145dp"
+        tools:layout_editor_absoluteY="502dp" />
+
+    <EditText
+        android:id="@+id/notes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="text"
+        android:text="Notes...."
+        tools:layout_editor_absoluteX="104dp"
+        tools:layout_editor_absoluteY="600dp" />
+
+    <ToggleButton
+        android:id="@+id/toggleButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ToggleButton"
+        tools:layout_editor_absoluteX="154dp"
+        tools:layout_editor_absoluteY="539dp" />
+
+    <SeekBar
+        android:id="@+id/feelBar"
+        android:layout_width="0dp"
+        android:layout_height="14dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="457dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

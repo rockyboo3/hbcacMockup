@@ -1,9 +1,11 @@
 package edu.umass.hbcacmockup;
 
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.MediaController;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.VideoView;
@@ -38,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         /////////////////////BACKGROUND VIDEO CODE///////////////////////////
-        mVideoView = (VideoView) findViewById(R.id.bgVideoView);
+        mVideoView = (VideoView) findViewById(R.id.backgroundVideo);
 
         Uri uri = Uri.parse("android.resource://"+getPackageName()+"/"+R.raw.bg_video);
         mVideoView.setVideoURI(uri);
@@ -146,5 +148,15 @@ public class MainActivity extends AppCompatActivity {
 
         TextView todayProgress = (TextView) findViewById(R.id.todayProgressTextView);
         todayProgress.setText("Today: " + activitiesDoneToday + "/4");
+    }
+
+    public void goSettings(View view){
+        Intent intent = new Intent(MainActivity.this,SettingsActivity.class);
+        startActivity(intent);
+    }
+
+    public void goCalendar(View view){
+        Intent intent = new Intent(MainActivity.this,CalendarActivity.class);
+        startActivity(intent);
     }
 }
