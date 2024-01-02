@@ -15,10 +15,14 @@ import android.widget.VideoView;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
@@ -58,11 +62,6 @@ public class HomePage extends AppCompatActivity {
     FirebaseUser user;
     FirebaseAuth auth;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-    String collectionPath = "goals";
-    String sleepDocument = "hoursSlept";
-    String stepDocument = "stepCount";
-    String veggieDocument = "veggies";
-    String waterDocument = "water";
 
     //get current date
     Date currentDate = new Date();
@@ -101,7 +100,9 @@ public class HomePage extends AppCompatActivity {
                         goals.put("water", 0);
                         waterProgressBar.setProgress(0);
                         goals.put("exercise", 0);
-                        goals.put("goalsMet", false);
+                        goals.put("food", 0);
+                        goals.put("allGoalsMet", false);
+                        goals.put("goalsMet", 0);
                         db.collection("users").document(user.getUid()).collection("days").document(formattedDate).set(goals);
                     }
                 });
@@ -131,14 +132,96 @@ public class HomePage extends AppCompatActivity {
             }
         });
 
-
         /////////////////////BACKGROUND VIDEO CODE///////////////////////////
-        mVideoView = (VideoView) findViewById(R.id.bgVideoView);
-
+        //default video
+        mVideoView = findViewById(R.id.bgVideoView);
         Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.bg_video);
         mVideoView.setVideoURI(uri);
-        mVideoView.start();
 
+        CollectionReference collectionRef = db.collection("users").document(user.getUid()).collection("days");
+        collectionRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                int docNum = task.getResult().size();
+                List<DocumentSnapshot> documents = task.getResult().getDocuments();
+
+                //set to default background if user's account is <3 days old
+                if (docNum < 3){
+                    mVideoView = findViewById(R.id.bgVideoView);
+                    Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.bg_video);
+                    mVideoView.setVideoURI(uri);
+                    mVideoView.start();
+                }
+
+                else if (docNum >= 7){
+                    int counter = 0; //counter for number of times in last 7 days 4/4 goals not met
+                    List<DocumentSnapshot> lastSevenDocuments = documents.subList(documents.size() - 7, documents.size()); //last 7 documents
+                    for (DocumentSnapshot document : lastSevenDocuments) {
+                        boolean allGoalsMet = document.getBoolean("allGoalsMet");
+                        if(!allGoalsMet){
+                            counter++;
+                        }
+                    }
+
+                    if (counter >= 7){
+                        //set background to ghost fish
+                        mVideoView = findViewById(R.id.bgVideoView);
+                        Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.ghostfishbg);
+                        mVideoView.setVideoURI(uri);
+                        mVideoView.start();
+                    }
+                    else if (counter >= 3){
+                        //set background to colorless fish
+                        mVideoView = findViewById(R.id.bgVideoView);
+                        Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.colorlessfishbg);
+                        mVideoView.setVideoURI(uri);
+                        mVideoView.start();
+                    }
+                    else if (counter < 3){
+                        //set background to default
+                        mVideoView = findViewById(R.id.bgVideoView);
+                        Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.bg_video);
+                        mVideoView.setVideoURI(uri);
+                        mVideoView.start();
+                    }
+                }
+
+                else if (docNum < 7){
+                    int counter = 0; //counter for number of times in last 7 days user did not meet goal
+                    List<DocumentSnapshot> lastThreeDocuments = documents.subList(documents.size() - 3, documents.size()); //last 3 documents
+                    for (DocumentSnapshot document : lastThreeDocuments) {
+                        boolean allGoalsMet = document.getBoolean("allGoalsMet");
+                        if(allGoalsMet == false){
+                            counter++;
+                        }
+                    }
+
+                    if (counter >= 7){
+                        //set background to ghost fish
+                        mVideoView = findViewById(R.id.bgVideoView);
+                        Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.ghostfishbg);
+                        mVideoView.setVideoURI(uri);
+                        mVideoView.start();
+                    }
+                    else if (counter >= 3){
+                        //set background to colorless fish
+                        mVideoView = findViewById(R.id.bgVideoView);
+                        Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.colorlessfishbg);
+                        mVideoView.setVideoURI(uri);
+                        mVideoView.start();
+                    }
+                    else if (counter < 3){
+                        //set background to default
+                        mVideoView = findViewById(R.id.bgVideoView);
+                        Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.bg_video);
+                        mVideoView.setVideoURI(uri);
+                        mVideoView.start();
+                    }
+                }
+            }
+        });
+
+        //loop bg video
         mVideoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             @Override
             public void onPrepared(MediaPlayer mediaPlayer) {
@@ -222,47 +305,51 @@ public class HomePage extends AppCompatActivity {
     }
 
     private void updateProgressBar() {
-        stepsProgressBar.setProgress(stepsProgress);
-        stepsTextViewProgress.setText("Steps\n" + stepsProgress + "%\n+");
+            stepsProgressBar.setProgress(stepsProgress);
+            stepsTextViewProgress.setText("Steps\n" + stepsProgress + "%\n+");
 
-        if (stepsProgress == 100 && stepsFlag) {
-            activitiesDoneToday++;
-            stepsFlag = false;
-        }
+            if (stepsProgress == 100 && stepsFlag) {
+                activitiesDoneToday++;
 
-        waterProgressBar.setProgress(waterProgress);
-        waterTextViewProgress.setText("Water\n" + waterProgress + "%\n+");
+                stepsFlag = false;
+            }
 
-        if (waterProgress == 100 && waterFlag) {
-            activitiesDoneToday++;
-            waterFlag = false;
-        }
+            waterProgressBar.setProgress(waterProgress);
+            waterTextViewProgress.setText("Water\n" + waterProgress + "%\n+");
 
-        sleepProgressBar.setProgress(sleepProgress);
-        sleepTextViewProgress.setText("Sleep\n" + sleepProgress + "%\n+");
+            if (waterProgress == 100 && waterFlag) {
+                activitiesDoneToday++;
+                waterFlag = false;
+            }
 
-        if (sleepProgress == 100 && sleepFlag) {
-            activitiesDoneToday++;
-            sleepFlag = false;
-        }
+            sleepProgressBar.setProgress(sleepProgress);
+            sleepTextViewProgress.setText("Sleep\n" + sleepProgress + "%\n+");
 
-        veggiesProgressBar.setProgress(veggiesProgress);
-        veggiesTextViewProgress.setText("Veggies\n" + veggiesProgress + "%\n+");
+            if (sleepProgress == 100 && sleepFlag) {
+                activitiesDoneToday++;
+                sleepFlag = false;
+            }
 
-        if (veggiesProgress == 100 && veggiesFlag) {
-            activitiesDoneToday++;
-            veggiesFlag = false;
-        }
+            veggiesProgressBar.setProgress(veggiesProgress);
+            veggiesTextViewProgress.setText("Veggies\n" + veggiesProgress + "%\n+");
 
-        //update the 'goalsMet' boolean if all goals are met
-        if (activitiesDoneToday == 4) {
+            if (veggiesProgress == 100 && veggiesFlag) {
+                activitiesDoneToday++;
+                veggiesFlag = false;
+            }
+
+            //update the 'goalsMet' boolean if all goals are met
+            if (activitiesDoneToday == 4) {
+                DocumentReference goalsMetRef = db.collection("users").document(user.getUid()).collection("days").document(formattedDate);
+                goalsMetRef.update("allGoalsMet", true);
+            }
+
+            TextView todayProgress = (TextView) findViewById(R.id.todayProgressTextView);
+            todayProgress.setText("Today: " + activitiesDoneToday + "/4");
             DocumentReference goalsMetRef = db.collection("users").document(user.getUid()).collection("days").document(formattedDate);
-            goalsMetRef.update("goalsMet", true);
+            goalsMetRef.update("goalsMet", activitiesDoneToday);
         }
 
-        TextView todayProgress = (TextView) findViewById(R.id.todayProgressTextView);
-        todayProgress.setText("Today: " + activitiesDoneToday + "/4");
-    }
 
     //aligning firestore data with progress bars
     private void alignProgress() {
@@ -311,9 +398,6 @@ public class HomePage extends AppCompatActivity {
                     updateProgressBar();
                 }
             }
-
-
         });
-
     }
 }

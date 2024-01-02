@@ -6,6 +6,55 @@
     android:layout_height="match_parent"
     tools:context=".CalendarActivity">
 
+    <!-- Bottom nav bar -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MainActivity"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp">
+
+        <!-- Add TextView to display the date -->
+        <TextView
+            android:id="@+id/date_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="150dp"
+            android:layout_marginTop="20dp"
+            android:textColor="@android:color/background_dark"
+            android:textStyle="bold" />
+
+        <!-- CalendarView to display the Calendar -->
+
+        <CalendarView
+            android:id="@+id/calendar"
+            android:layout_width="396dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerInParent="true"
+            android:layout_marginHorizontal="0dp"
+            android:layout_marginVertical="75dp"
+            android:layout_marginTop="86dp"
+            tools:soundEffectsEnabled="true"></CalendarView>
+
+        <!-- text input to display user notes -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="250dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/notes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Notes"
+                android:inputType="textMultiLine" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </RelativeLayout>
+
     <LinearLayout
         android:id="@+id/bottomNav"
         android:layout_width="match_parent"
