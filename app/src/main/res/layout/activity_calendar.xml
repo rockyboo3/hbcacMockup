@@ -6,55 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".CalendarActivity">
 
-    <!-- Bottom nav bar -->
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".MainActivity"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp">
-
-        <!-- Add TextView to display the date -->
-        <TextView
-            android:id="@+id/date_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginLeft="150dp"
-            android:layout_marginTop="20dp"
-            android:textColor="@android:color/background_dark"
-            android:textStyle="bold" />
-
-        <!-- CalendarView to display the Calendar -->
-
-        <CalendarView
-            android:id="@+id/calendar"
-            android:layout_width="396dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerInParent="true"
-            android:layout_marginHorizontal="0dp"
-            android:layout_marginVertical="75dp"
-            android:layout_marginTop="86dp"
-            tools:soundEffectsEnabled="true"></CalendarView>
-
-        <!-- text input to display user notes -->
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="250dp">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/notes"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Notes"
-                android:inputType="textMultiLine" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-    </RelativeLayout>
-
     <LinearLayout
         android:id="@+id/bottomNav"
         android:layout_width="match_parent"
@@ -77,6 +28,7 @@
             android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:onClick="goMain"
             android:scaleX="2"
             android:scaleY="2"
             android:translationY="5dp"
@@ -87,8 +39,71 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:onClick="goSettings"
             app:srcCompat="@drawable/ic_settings_foreground"
             app:tint="@color/iconColor" />
     </LinearLayout>
+
+    <CalendarView
+        android:id="@+id/calendarView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/howDoYouFeel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="132dp"
+        android:layout_marginVertical="375dp"
+        android:text="How Do You Feel Today?"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/calendarView" />
+
+    <TextView
+        android:id="@+id/areYouImproving"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="215dp"
+        android:text="Are You Improving?"
+        app:layout_constraintBottom_toBottomOf="@+id/bottomNav"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/notes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="85dp"
+        android:layout_marginVertical="50dp"
+        android:ems="10"
+        android:inputType="text"
+        android:text="Notes...."
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/toggleButton" />
+
+    <ToggleButton
+        android:id="@+id/toggleButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ToggleButton"
+        android:layout_marginVertical="150dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <SeekBar
+        android:id="@+id/feelBar"
+        android:layout_width="0dp"
+        android:layout_height="14dp"
+        android:layout_marginVertical="275dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

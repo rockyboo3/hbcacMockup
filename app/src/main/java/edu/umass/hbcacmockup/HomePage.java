@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -38,15 +39,22 @@ import java.util.Map;
 
 public class HomePage extends AppCompatActivity {
     private int stepsProgress = 0;
+    private TextView foodAvailable;
+    private long fishFood = 0;
     private int waterProgress = 0;
     private int sleepProgress = 0;
     private int veggiesProgress = 0;
-    private int activitiesDoneToday = 0;
+    private double activitiesDoneToday = 0;
 
     private boolean stepsFlag = true;
     private boolean waterFlag = true;
     private boolean sleepFlag = true;
     private boolean veggiesFlag = true;
+    private boolean steps50Flag = true;
+    private boolean water50Flag = true;
+    private boolean sleep50Flag = true;
+    private boolean veggies50Flag = true;
+
     private ProgressBar stepsProgressBar;
     private ProgressBar waterProgressBar;
     private ProgressBar sleepProgressBar;
@@ -55,14 +63,13 @@ public class HomePage extends AppCompatActivity {
     private TextView waterTextViewProgress;
     private TextView sleepTextViewProgress;
     private TextView veggiesTextViewProgress;
-
     private VideoView mVideoView;
     ImageView settings;
     ImageView calendar;
     FirebaseUser user;
     FirebaseAuth auth;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-
+    Uri currentBgUri;
     //get current date
     Date currentDate = new Date();
     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
@@ -71,7 +78,6 @@ public class HomePage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
         //exit to login screen if user is not logged in
@@ -100,15 +106,16 @@ public class HomePage extends AppCompatActivity {
                         goals.put("water", 0);
                         waterProgressBar.setProgress(0);
                         goals.put("exercise", 0);
+                        goals.put("numGoalsMet", 0);
                         goals.put("food", 0);
                         goals.put("allGoalsMet", false);
-                        goals.put("goalsMet", 0);
+                        goals.put("fishAte", 0);
                         db.collection("users").document(user.getUid()).collection("days").document(formattedDate).set(goals);
                     }
                 });
 
         setContentView(R.layout.activity_home_page);
-        alignProgress(); //match firestore progress with progress bar
+        alignProgress(); //match firestore progress with progress bars & textviews
 
         //click to view settings page
         settings = findViewById(R.id.settingsImageView);
@@ -135,8 +142,8 @@ public class HomePage extends AppCompatActivity {
         /////////////////////BACKGROUND VIDEO CODE///////////////////////////
         //default video
         mVideoView = findViewById(R.id.bgVideoView);
-        Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.bg_video);
-        mVideoView.setVideoURI(uri);
+        currentBgUri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.bg_video);
+        mVideoView.setVideoURI(currentBgUri);
 
         CollectionReference collectionRef = db.collection("users").document(user.getUid()).collection("days");
         collectionRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -148,8 +155,8 @@ public class HomePage extends AppCompatActivity {
                 //set to default background if user's account is <3 days old
                 if (docNum < 3){
                     mVideoView = findViewById(R.id.bgVideoView);
-                    Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.bg_video);
-                    mVideoView.setVideoURI(uri);
+                    currentBgUri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.bg_video);
+                    mVideoView.setVideoURI(currentBgUri);
                     mVideoView.start();
                 }
 
@@ -157,31 +164,30 @@ public class HomePage extends AppCompatActivity {
                     int counter = 0; //counter for number of times in last 7 days 4/4 goals not met
                     List<DocumentSnapshot> lastSevenDocuments = documents.subList(documents.size() - 7, documents.size()); //last 7 documents
                     for (DocumentSnapshot document : lastSevenDocuments) {
-                        boolean allGoalsMet = document.getBoolean("allGoalsMet");
-                        if(!allGoalsMet){
+                        long numFishAte = document.getLong("fishAte");
+                        if(numFishAte < 4){
                             counter++;
                         }
                     }
-
                     if (counter >= 7){
                         //set background to ghost fish
                         mVideoView = findViewById(R.id.bgVideoView);
-                        Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.ghostfishbg);
-                        mVideoView.setVideoURI(uri);
+                        currentBgUri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.ghostfishbg);
+                        mVideoView.setVideoURI(currentBgUri);
                         mVideoView.start();
                     }
                     else if (counter >= 3){
                         //set background to colorless fish
                         mVideoView = findViewById(R.id.bgVideoView);
-                        Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.colorlessfishbg);
-                        mVideoView.setVideoURI(uri);
+                        currentBgUri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.colorlessfishbg);
+                        mVideoView.setVideoURI(currentBgUri);
                         mVideoView.start();
                     }
                     else if (counter < 3){
                         //set background to default
                         mVideoView = findViewById(R.id.bgVideoView);
-                        Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.bg_video);
-                        mVideoView.setVideoURI(uri);
+                        currentBgUri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.bg_video);
+                        mVideoView.setVideoURI(currentBgUri);
                         mVideoView.start();
                     }
                 }
@@ -190,45 +196,40 @@ public class HomePage extends AppCompatActivity {
                     int counter = 0; //counter for number of times in last 7 days user did not meet goal
                     List<DocumentSnapshot> lastThreeDocuments = documents.subList(documents.size() - 3, documents.size()); //last 3 documents
                     for (DocumentSnapshot document : lastThreeDocuments) {
-                        boolean allGoalsMet = document.getBoolean("allGoalsMet");
-                        if(allGoalsMet == false){
+                        long numFishAte = document.getLong("fishAte");
+                        if(numFishAte < 4){
                             counter++;
                         }
                     }
-
-                    if (counter >= 7){
-                        //set background to ghost fish
-                        mVideoView = findViewById(R.id.bgVideoView);
-                        Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.ghostfishbg);
-                        mVideoView.setVideoURI(uri);
-                        mVideoView.start();
-                    }
-                    else if (counter >= 3){
+                    if (counter >= 3){
                         //set background to colorless fish
                         mVideoView = findViewById(R.id.bgVideoView);
-                        Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.colorlessfishbg);
-                        mVideoView.setVideoURI(uri);
+                        currentBgUri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.colorlessfishbg);
+                        mVideoView.setVideoURI(currentBgUri);
                         mVideoView.start();
                     }
                     else if (counter < 3){
                         //set background to default
                         mVideoView = findViewById(R.id.bgVideoView);
-                        Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.bg_video);
-                        mVideoView.setVideoURI(uri);
+                        currentBgUri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.bg_video);
+                        mVideoView.setVideoURI(currentBgUri);
                         mVideoView.start();
                     }
                 }
             }
         });
 
-        //loop bg video
-        mVideoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+        //loop video
+        mVideoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
-            public void onPrepared(MediaPlayer mediaPlayer) {
-                mediaPlayer.setLooping(true);
+            public void onCompletion(MediaPlayer mp) {
+                mVideoView.setVideoURI(currentBgUri);
+                mVideoView.start();
             }
         });
         /////////////////////////////////////////////////////////////////////
+
+        feedFish(); //feed fish button
 
         //Steps
         stepsProgressBar = findViewById(R.id.stepsProgressBar);
@@ -260,7 +261,7 @@ public class HomePage extends AppCompatActivity {
 
                     //increment water by 8 oz in firestore
                     DocumentReference stepRef = db.collection("users").document(user.getUid()).collection("days").document(formattedDate);
-                    stepRef.update("water", FieldValue.increment(8));
+                    stepRef.update("water", FieldValue.increment(1));
                 }
             }
         });
@@ -293,25 +294,28 @@ public class HomePage extends AppCompatActivity {
                 if (veggiesProgress <= 90) {
                     veggiesProgress += 10;
                     updateProgressBar();
-
                     //increment veggies by 1 serving in firestore
                     DocumentReference stepRef = db.collection("users").document(user.getUid()).collection("days").document(formattedDate);
                     stepRef.update("veggies", FieldValue.increment(1));
                 }
             }
         });
-
         updateProgressBar();
     }
 
     private void updateProgressBar() {
+            DocumentReference goalRef = db.collection("users").document(user.getUid()).collection("days").document(formattedDate);
             stepsProgressBar.setProgress(stepsProgress);
             stepsTextViewProgress.setText("Steps\n" + stepsProgress + "%\n+");
 
             if (stepsProgress == 100 && stepsFlag) {
                 activitiesDoneToday++;
-
+                fishFood++;
                 stepsFlag = false;
+            }
+            else if(stepsProgress == 50 && steps50Flag){
+                fishFood++;
+                steps50Flag = false;
             }
 
             waterProgressBar.setProgress(waterProgress);
@@ -319,7 +323,12 @@ public class HomePage extends AppCompatActivity {
 
             if (waterProgress == 100 && waterFlag) {
                 activitiesDoneToday++;
+                fishFood++;
                 waterFlag = false;
+            }
+            else if(waterProgress == 50 && water50Flag){
+                fishFood++;
+                water50Flag = false;
             }
 
             sleepProgressBar.setProgress(sleepProgress);
@@ -327,7 +336,12 @@ public class HomePage extends AppCompatActivity {
 
             if (sleepProgress == 100 && sleepFlag) {
                 activitiesDoneToday++;
+                fishFood++;
                 sleepFlag = false;
+            }
+            else if(sleepProgress == 50 && sleep50Flag){
+                fishFood++;
+                sleep50Flag = false;
             }
 
             veggiesProgressBar.setProgress(veggiesProgress);
@@ -335,68 +349,213 @@ public class HomePage extends AppCompatActivity {
 
             if (veggiesProgress == 100 && veggiesFlag) {
                 activitiesDoneToday++;
+                fishFood++;
                 veggiesFlag = false;
             }
+            else if(veggiesProgress == 50 && veggies50Flag){
+                fishFood++;
+                veggies50Flag = false;
+            }
 
-            //update the 'goalsMet' boolean if all goals are met
+            //update the 'allGoalsMet' boolean
             if (activitiesDoneToday == 4) {
                 DocumentReference goalsMetRef = db.collection("users").document(user.getUid()).collection("days").document(formattedDate);
                 goalsMetRef.update("allGoalsMet", true);
             }
-
-            TextView todayProgress = (TextView) findViewById(R.id.todayProgressTextView);
-            todayProgress.setText("Today: " + activitiesDoneToday + "/4");
+            //update 'food' and  'numGoalsMet' fields & texts
             DocumentReference goalsMetRef = db.collection("users").document(user.getUid()).collection("days").document(formattedDate);
-            goalsMetRef.update("goalsMet", activitiesDoneToday);
-        }
+            goalsMetRef.update("food", fishFood);
+            goalsMetRef.update("numGoalsMet", activitiesDoneToday);
+            updateTextView();
 
+        }
 
     //aligning firestore data with progress bars
     private void alignProgress() {
-
         DocumentReference dateRef = db.collection("users").document(user.getUid()).collection("days").document(formattedDate);
+
         dateRef.get().addOnCompleteListener(task -> {
             if (task.isSuccessful() && task.getResult().exists()) {
 
+                long steps = task.getResult().getLong("steps");
+                long sleep = task.getResult().getLong("sleep");
+                long water = task.getResult().getLong("water");
+                long veggies = task.getResult().getLong("veggies");
+                fishFood = task.getResult().getLong("food");
+                long numFishAte = task.getResult().getLong("fishAte");
+
                 //update step count
-                if (task.getResult().getLong("steps") == 0){
+                if (steps == 0){
                     stepsProgressBar.setProgress(0);
                 }
+                else if(steps == 10000){
+                    stepsProgressBar.setProgress(100);
+                    stepsProgress = 100;
+                    activitiesDoneToday++;
+                    fishFood += 2;
+                    stepsFlag = false;
+                    steps50Flag = false;
+                    updateProgressBar();
+                }
+                else if(steps >= 5000 && steps < 10000){
+                    steps50Flag = false;
+                    fishFood++;
+                    stepsProgress += (steps) / 100;
+                    stepsProgressBar.setProgress(stepsProgress);
+                    updateProgressBar();
+                }
                 else {
-                    long stepCount = task.getResult().getLong("steps");
-                    stepsProgress += (stepCount) / 100;
+                    stepsProgress += (steps) / 100;
+                    stepsProgressBar.setProgress(stepsProgress);
                     updateProgressBar();
                 }
 
                 //update sleep
-                if(task.getResult().getLong("sleep") == 0) {
+                if(sleep == 0) {
                     sleepProgressBar.setProgress(0);
                 }
+                else if(sleep == 10){
+                    sleepProgressBar.setProgress(100);
+                    sleepProgress = 100;
+                    activitiesDoneToday++;
+                    fishFood += 2;
+                    sleepFlag = false;
+                    sleep50Flag = false;
+                    updateProgressBar();
+                }
+                else if(sleep >= 5 && sleep < 10){
+                    sleep50Flag = false;
+                    sleepProgress += sleep * 10;
+                    fishFood++;
+                    sleepProgressBar.setProgress(sleepProgress);
+                    updateProgressBar();
+                }
                 else {
-                    long sleepCount = task.getResult().getLong("sleep");
-                    sleepProgress += (sleepCount) * 10;
+                    sleepProgress += (sleep) * 10;
+                    sleepProgressBar.setProgress(sleepProgress);
                     updateProgressBar();
                 }
 
-                //update veggies
-                if(task.getResult().getLong("veggies") == 0) {
+                //update veggies count
+                if (veggies == 0){
                     veggiesProgressBar.setProgress(0);
                 }
+                else if(veggies == 10){
+                    veggiesProgressBar.setProgress(100);
+                    veggiesProgress = 100;
+                    activitiesDoneToday++;
+                    fishFood += 2;
+                    veggiesFlag = false;
+                    veggies50Flag = false;
+                    updateProgressBar();
+                }
+                else if(veggies >= 5 && veggies < 10){
+                    veggies50Flag = false;
+                    veggiesProgress += veggies * 10;
+                    fishFood++;
+                    veggiesProgressBar.setProgress(veggiesProgress);
+                    updateProgressBar();
+                }
                 else {
-                    long vegCount = task.getResult().getLong("veggies");
-                    veggiesProgress += (vegCount) * 10;
+                    veggiesProgress += veggies * 10;
+                    veggiesProgressBar.setProgress(veggiesProgress);
                     updateProgressBar();
                 }
 
                 //update water
-                if(task.getResult().getLong("water") == 0) {
+                if(water == 0) {
                     waterProgressBar.setProgress(0);
                 }
-                else {
-                    long waterCount = task.getResult().getLong("water");
-                    waterProgress += ((waterCount) / 8) * 10;
+                else if(water == 10){
+                    waterFlag = false;
+                    water50Flag = false;
+                    fishFood += 2;
+                    waterProgressBar.setProgress(100);
+                    waterProgress = 100;
+                    activitiesDoneToday++;
                     updateProgressBar();
                 }
+                else if(water >= 5 && water < 10){
+                    water50Flag = false;
+                    waterProgress += water * 10;
+                    fishFood++;
+                    waterProgressBar.setProgress(waterProgress);
+                    updateProgressBar();
+                }
+                else {
+                    waterProgress += water * 10;
+                    waterProgressBar.setProgress(waterProgress);
+                    updateProgressBar();
+                }
+                updateTextView();
+                dateRef.update("food", FieldValue.increment(-numFishAte));
+            }
+
+        });
+    }
+
+    //feed fish button
+    private void feedFish(){
+        Button feed = findViewById(R.id.feedButton);
+        VideoView bgVideo = findViewById(R.id.bgVideoView);
+        feed.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String videoPath = "android.resource://" + getPackageName() + "/" + R.raw.feeding_fish_bg;
+                Uri uri = Uri.parse(videoPath);
+                DocumentReference dateRef = db.collection("users").document(user.getUid()).collection("days").document(formattedDate);
+                dateRef.get().addOnCompleteListener(task -> {
+                    if (task.isSuccessful() && task.getResult().exists()) {
+                        //check if user has enough food
+                        if (fishFood >= 1) {
+                            //set fish feeding video
+                            bgVideo.setVideoURI(uri);
+                            bgVideo.start();
+                            dateRef.update("fishAte", FieldValue.increment(1));
+                            dateRef.update("food", FieldValue.increment(-1));
+                            fishFood -= 1;
+                            updateProgressBar();
+
+                            //migrate to updated instance of database
+                            DocumentReference dateRefUpdated = db.collection("users").document(user.getUid()).collection("days").document(formattedDate);
+                            dateRefUpdated.get().addOnCompleteListener(taskUpdated -> {
+                                bgVideo.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                                    @Override
+                                    //revert bg
+                                    public void onCompletion(MediaPlayer mp) {
+                                        if (taskUpdated.getResult().getLong("fishAte") > 3) {
+                                            currentBgUri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.bg_video);
+                                            mVideoView.setVideoURI(currentBgUri);
+                                            mVideoView.start(); //loop healthy fish video if fish was fed 4 times
+                                        } else {
+                                            mVideoView.setVideoURI(currentBgUri);
+                                            mVideoView.start(); //loop current bg if user hasn't met goals
+                                        }
+                                    }
+                                });
+                            });
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+    //updates 'Today:' and 'Food Available:' texts
+    private void updateTextView(){
+        DocumentReference dateRef = db.collection("users").document(user.getUid()).collection("days").document(formattedDate);
+        dateRef.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful() && task.getResult().exists()) {
+                TextView todayProgress = (TextView) findViewById(R.id.todayProgressTextView);
+                foodAvailable = findViewById(R.id.foodAvailableTextView);
+
+                //update activities completed
+                long tempProgress = task.getResult().getLong("numGoalsMet");
+                todayProgress.setText("Today: " + tempProgress + "/4");
+
+                //update food available
+                long tempFood = task.getResult().getLong("food");
+                foodAvailable.setText("Food Available: " + tempFood + "/8");
             }
         });
     }

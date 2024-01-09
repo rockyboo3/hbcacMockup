@@ -42,15 +42,6 @@ public class SettingsActivity extends AppCompatActivity {
             textview.setText(user.getEmail());
         }
 
-        //show options for settings
-        list = findViewById(R.id.settingsListView);
-
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter(
-                this, android.R.layout.simple_list_item_1, settingsOptions
-        );
-
-        list.setAdapter(arrayAdapter);
-
         //click to view home page
         home = findViewById(R.id.lotusImageView);
 

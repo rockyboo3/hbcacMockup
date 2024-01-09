@@ -126,7 +126,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
         android:layout_marginBottom="20dp"
-        android:text="@string/todayProgress"
+        android:text="Today: 0/4"
         android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/bottomNav"
         app:layout_constraintStart_toStartOf="parent" />
@@ -137,7 +137,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="40dp"
         android:layout_marginBottom="20dp"
-        android:text="@string/foodAvail"
+        android:text="Food Available: 0/8"
         android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/bottomNav"
         app:layout_constraintEnd_toEndOf="parent" />
