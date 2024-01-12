@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.VideoView;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
@@ -64,6 +65,7 @@ public class HomePage extends AppCompatActivity {
     private TextView sleepTextViewProgress;
     private TextView veggiesTextViewProgress;
     private VideoView mVideoView;
+    long fishAte;
     ImageView settings;
     ImageView calendar;
     FirebaseUser user;
@@ -107,6 +109,8 @@ public class HomePage extends AppCompatActivity {
                         waterProgressBar.setProgress(0);
                         goals.put("exercise", 0);
                         goals.put("numGoalsMet", 0);
+                        goals.put("dailyNotes", "");
+                        goals.put("stressLevel", 2);
                         goals.put("food", 0);
                         goals.put("allGoalsMet", false);
                         goals.put("fishAte", 0);
@@ -304,7 +308,6 @@ public class HomePage extends AppCompatActivity {
     }
 
     private void updateProgressBar() {
-            DocumentReference goalRef = db.collection("users").document(user.getUid()).collection("days").document(formattedDate);
             stepsProgressBar.setProgress(stepsProgress);
             stepsTextViewProgress.setText("Steps\n" + stepsProgress + "%\n+");
 
@@ -356,15 +359,15 @@ public class HomePage extends AppCompatActivity {
                 fishFood++;
                 veggies50Flag = false;
             }
+            DocumentReference goalsMetRef = db.collection("users").document(user.getUid()).collection("days").document(formattedDate);
 
             //update the 'allGoalsMet' boolean
             if (activitiesDoneToday == 4) {
-                DocumentReference goalsMetRef = db.collection("users").document(user.getUid()).collection("days").document(formattedDate);
                 goalsMetRef.update("allGoalsMet", true);
             }
+
             //update 'food' and  'numGoalsMet' fields & texts
-            DocumentReference goalsMetRef = db.collection("users").document(user.getUid()).collection("days").document(formattedDate);
-            goalsMetRef.update("food", fishFood);
+            goalsMetRef.update("food", fishFood-fishAte);
             goalsMetRef.update("numGoalsMet", activitiesDoneToday);
             updateTextView();
 
@@ -381,114 +384,76 @@ public class HomePage extends AppCompatActivity {
                 long sleep = task.getResult().getLong("sleep");
                 long water = task.getResult().getLong("water");
                 long veggies = task.getResult().getLong("veggies");
+                fishAte = task.getResult().getLong("fishAte");
                 fishFood = task.getResult().getLong("food");
-                long numFishAte = task.getResult().getLong("fishAte");
 
                 //update step count
-                if (steps == 0){
-                    stepsProgressBar.setProgress(0);
+                if(steps > 0 && steps < 10000){
+                    stepsProgress += (steps) / 100;
+                    stepsProgressBar.setProgress(stepsProgress);
+                    updateProgressBar();
                 }
-                else if(steps == 10000){
-                    stepsProgressBar.setProgress(100);
-                    stepsProgress = 100;
+                else if (steps == 10000){
+                    stepsProgress += (steps / 100);
+                    stepsProgressBar.setProgress(stepsProgress);
+                    steps50Flag = false;
+                    stepsFlag = false;
                     activitiesDoneToday++;
                     fishFood += 2;
-                    stepsFlag = false;
-                    steps50Flag = false;
-                    updateProgressBar();
-                }
-                else if(steps >= 5000 && steps < 10000){
-                    steps50Flag = false;
-                    fishFood++;
-                    stepsProgress += (steps) / 100;
-                    stepsProgressBar.setProgress(stepsProgress);
-                    updateProgressBar();
-                }
-                else {
-                    stepsProgress += (steps) / 100;
-                    stepsProgressBar.setProgress(stepsProgress);
                     updateProgressBar();
                 }
 
                 //update sleep
-                if(sleep == 0) {
-                    sleepProgressBar.setProgress(0);
-                }
-                else if(sleep == 10){
-                    sleepProgressBar.setProgress(100);
-                    sleepProgress = 100;
-                    activitiesDoneToday++;
-                    fishFood += 2;
-                    sleepFlag = false;
-                    sleep50Flag = false;
-                    updateProgressBar();
-                }
-                else if(sleep >= 5 && sleep < 10){
-                    sleep50Flag = false;
-                    sleepProgress += sleep * 10;
-                    fishFood++;
-                    sleepProgressBar.setProgress(sleepProgress);
-                    updateProgressBar();
-                }
-                else {
+                if (sleep > 0 && sleep < 10){
                     sleepProgress += (sleep) * 10;
                     sleepProgressBar.setProgress(sleepProgress);
                     updateProgressBar();
                 }
 
-                //update veggies count
-                if (veggies == 0){
-                    veggiesProgressBar.setProgress(0);
-                }
-                else if(veggies == 10){
-                    veggiesProgressBar.setProgress(100);
-                    veggiesProgress = 100;
+                else if (sleep == 10){
+                    sleepProgress += (sleep) * 10;
+                    sleepProgressBar.setProgress(sleepProgress);
+                    sleep50Flag = false;
+                    sleepFlag = false;
                     activitiesDoneToday++;
                     fishFood += 2;
-                    veggiesFlag = false;
-                    veggies50Flag = false;
                     updateProgressBar();
                 }
-                else if(veggies >= 5 && veggies < 10){
-                    veggies50Flag = false;
-                    veggiesProgress += veggies * 10;
-                    fishFood++;
-                    veggiesProgressBar.setProgress(veggiesProgress);
-                    updateProgressBar();
-                }
-                else {
+
+                //update veggies
+                if(veggies > 0 && veggies < 10) {
                     veggiesProgress += veggies * 10;
                     veggiesProgressBar.setProgress(veggiesProgress);
                     updateProgressBar();
                 }
 
-                //update water
-                if(water == 0) {
-                    waterProgressBar.setProgress(0);
-                }
-                else if(water == 10){
-                    waterFlag = false;
-                    water50Flag = false;
-                    fishFood += 2;
-                    waterProgressBar.setProgress(100);
-                    waterProgress = 100;
+                else if (veggies == 10){
+                    veggiesProgress += veggies * 10;
+                    veggiesProgressBar.setProgress(veggiesProgress);
+                    veggies50Flag = false;
+                    veggiesFlag = false;
                     activitiesDoneToday++;
+                    fishFood += 2;
                     updateProgressBar();
                 }
-                else if(water >= 5 && water < 10){
+
+                //update water
+                if (water > 0 && water < 10){
+                    waterProgress += water * 10;
+                    waterProgressBar.setProgress(waterProgress);
+                    updateProgressBar();
+                }
+
+                else if (water == 10){
+                    waterProgress += water * 10;
+                    stepsProgressBar.setProgress(waterProgress);
                     water50Flag = false;
-                    waterProgress += water * 10;
-                    fishFood++;
-                    waterProgressBar.setProgress(waterProgress);
-                    updateProgressBar();
-                }
-                else {
-                    waterProgress += water * 10;
-                    waterProgressBar.setProgress(waterProgress);
+                    waterFlag = false;
+                    activitiesDoneToday++;
+                    fishFood += 2;
                     updateProgressBar();
                 }
                 updateTextView();
-                dateRef.update("food", FieldValue.increment(-numFishAte));
             }
 
         });
@@ -507,13 +472,12 @@ public class HomePage extends AppCompatActivity {
                 dateRef.get().addOnCompleteListener(task -> {
                     if (task.isSuccessful() && task.getResult().exists()) {
                         //check if user has enough food
-                        if (fishFood >= 1) {
+                        if (task.getResult().getLong("food") >= 1) {
                             //set fish feeding video
                             bgVideo.setVideoURI(uri);
                             bgVideo.start();
                             dateRef.update("fishAte", FieldValue.increment(1));
-                            dateRef.update("food", FieldValue.increment(-1));
-                            fishFood -= 1;
+                            fishAte++;
                             updateProgressBar();
 
                             //migrate to updated instance of database
@@ -535,6 +499,9 @@ public class HomePage extends AppCompatActivity {
                                 });
                             });
                         }
+                        else{
+                            Toast.makeText(HomePage.this, "Not enough food", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 });
             }
@@ -550,12 +517,10 @@ public class HomePage extends AppCompatActivity {
                 foodAvailable = findViewById(R.id.foodAvailableTextView);
 
                 //update activities completed
-                long tempProgress = task.getResult().getLong("numGoalsMet");
-                todayProgress.setText("Today: " + tempProgress + "/4");
+                todayProgress.setText("Today: " + task.getResult().getLong("numGoalsMet") + "/4");
 
                 //update food available
-                long tempFood = task.getResult().getLong("food");
-                foodAvailable.setText("Food Available: " + tempFood + "/8");
+                foodAvailable.setText("Food Available: " + task.getResult().getLong("food") + "/8");
             }
         });
     }
