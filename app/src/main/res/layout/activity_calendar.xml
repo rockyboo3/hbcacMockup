@@ -28,7 +28,6 @@
             android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:onClick="goMain"
             android:scaleX="2"
             android:scaleY="2"
             android:translationY="5dp"
@@ -39,7 +38,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:onClick="goSettings"
             app:srcCompat="@drawable/ic_settings_foreground"
             app:tint="@color/iconColor" />
     </LinearLayout>

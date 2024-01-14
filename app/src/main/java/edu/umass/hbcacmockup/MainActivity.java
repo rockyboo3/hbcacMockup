@@ -1,16 +1,16 @@
 package edu.umass.hbcacmockup;
 
-import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.MediaController;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.VideoView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import edu.umass.hbcacmockup.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
     private int stepsProgress = 0;
@@ -34,13 +34,20 @@ public class MainActivity extends AppCompatActivity {
 
     private VideoView mVideoView;
 
+    //for nav
+    //ActivityMainBinding binding;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        //connect nav
+        //binding = ActivityMainBinding.inflate(getLayoutInflater());
+        //setContentView(binding.getRoot());
+        //////
+        //setContentView(R.layout.activity_main);
 
         /////////////////////BACKGROUND VIDEO CODE///////////////////////////
-        mVideoView = (VideoView) findViewById(R.id.backgroundVideo);
+        mVideoView = (VideoView) findViewById(R.id.bgVideoView);
 
         Uri uri = Uri.parse("android.resource://"+getPackageName()+"/"+R.raw.bg_video);
         mVideoView.setVideoURI(uri);
@@ -148,15 +155,5 @@ public class MainActivity extends AppCompatActivity {
 
         TextView todayProgress = (TextView) findViewById(R.id.todayProgressTextView);
         todayProgress.setText("Today: " + activitiesDoneToday + "/4");
-    }
-
-    public void goSettings(View view){
-        Intent intent = new Intent(MainActivity.this,SettingsActivity.class);
-        startActivity(intent);
-    }
-
-    public void goCalendar(View view){
-        Intent intent = new Intent(MainActivity.this,CalendarActivity.class);
-        startActivity(intent);
     }
 }
