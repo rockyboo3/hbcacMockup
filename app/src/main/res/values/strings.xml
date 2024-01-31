@@ -10,4 +10,5 @@
     <string name="goalPlaceholder">of 8 cups of water</string>
     <string name="remainingProgressPlaceholder">You need to drink 2 more cups of water today to reach your goal!</string>
     <string name="waterClickMessage">Click to add cups!</string>
+    <string name="cupTag">greyCup</string>
 </resources>

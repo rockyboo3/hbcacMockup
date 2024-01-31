@@ -23,4 +23,10 @@ public class CalendarActivity extends AppCompatActivity {
         Intent intent = new Intent(CalendarActivity.this,MainActivity.class);
         startActivity(intent);
     }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        overridePendingTransition(0, 0);
+    }
 }
