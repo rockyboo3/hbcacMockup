@@ -1,11 +1,8 @@
 package edu.umass.hbcacmockup;
 
 import android.content.Intent;
-import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.MediaController;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.VideoView;
@@ -40,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         /////////////////////BACKGROUND VIDEO CODE///////////////////////////
-        mVideoView = (VideoView) findViewById(R.id.backgroundVideo);
+        /*mVideoView = (VideoView) findViewById(R.id.backgroundVideo);
 
         Uri uri = Uri.parse("android.resource://"+getPackageName()+"/"+R.raw.bg_video);
         mVideoView.setVideoURI(uri);
@@ -51,12 +48,12 @@ public class MainActivity extends AppCompatActivity {
             public void onPrepared(MediaPlayer mediaPlayer){
                 mediaPlayer.setLooping(true);
             }
-        });
+        });*/
         /////////////////////////////////////////////////////////////////////
 
         //Steps
-        stepsProgressBar = findViewById(R.id.stepsProgressBar);
-        stepsTextViewProgress = findViewById(R.id.stepsProgressText);
+        stepsProgressBar = findViewById(R.id.waterProgressBarSubPage);
+        stepsTextViewProgress = findViewById(R.id.waterProgressTextSubpage);
 
         stepsTextViewProgress.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
         waterProgressBar = findViewById(R.id.waterProgressBar);
         waterTextViewProgress = findViewById(R.id.waterProgressText);
 
-        waterTextViewProgress.setOnClickListener(new View.OnClickListener() {
+        /*waterTextViewProgress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (waterProgress <= 90) {
@@ -80,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
                     updateProgressBar();
                 }
             }
-        });
+        });*/
 
         //Sleep
         sleepProgressBar = findViewById(R.id.sleepProgressBar);
@@ -123,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         waterProgressBar.setProgress(waterProgress);
-        waterTextViewProgress.setText("Water\n" + waterProgress + "%\n+");
+        waterTextViewProgress.setText("Water\n" + waterProgress + "%\n-->");
 
         if(waterProgress == 100 && waterFlag){
             activitiesDoneToday++;
@@ -158,5 +155,16 @@ public class MainActivity extends AppCompatActivity {
     public void goCalendar(View view){
         Intent intent = new Intent(MainActivity.this,CalendarActivity.class);
         startActivity(intent);
+    }
+
+    public void goWater(View view){
+        Intent intent = new Intent(MainActivity.this,WaterActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        overridePendingTransition(0, 0);
     }
 }

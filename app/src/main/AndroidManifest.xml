@@ -29,6 +29,9 @@
         <activity
             android:name=".MainActivity"
             android:exported="false"/>
+        <activity
+            android:name=".WaterActivity"
+            android:exported="false"/>
     </application>
 
 </manifest>
