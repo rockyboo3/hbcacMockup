@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
         waterProgressBar = findViewById(R.id.waterProgressBar);
         waterTextViewProgress = findViewById(R.id.waterProgressText);
 
-        /*waterTextViewProgress.setOnClickListener(new View.OnClickListener() {
+        waterTextViewProgress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (waterProgress <= 90) {
@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
                     updateProgressBar();
                 }
             }
-        });*/
+        });
 
         //Sleep
         sleepProgressBar = findViewById(R.id.sleepProgressBar);
@@ -120,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         waterProgressBar.setProgress(waterProgress);
-        waterTextViewProgress.setText("Water\n" + waterProgress + "%\n-->");
+        waterTextViewProgress.setText("Water\n" + waterProgress + "%\n+");
 
         if(waterProgress == 100 && waterFlag){
             activitiesDoneToday++;
@@ -155,16 +155,5 @@ public class MainActivity extends AppCompatActivity {
     public void goCalendar(View view){
         Intent intent = new Intent(MainActivity.this,CalendarActivity.class);
         startActivity(intent);
-    }
-
-    public void goWater(View view){
-        Intent intent = new Intent(MainActivity.this,WaterActivity.class);
-        startActivity(intent);
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        overridePendingTransition(0, 0);
     }
 }
