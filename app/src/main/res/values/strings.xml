@@ -3,11 +3,4 @@
     <string name="feed">FEED</string>
     <string name="foodAvail">Food Available: 5</string>
     <string name="todayProgress">Today: </string>
-    <string name="water"><b>Water</b></string>
-    <string name="back"><![CDATA[< Back]]></string>
-    <string name="today">Today</string>
-    <string name="numberPlaceholder"><b>6</b></string>
-    <string name="goalPlaceholder">of 8 cups of water</string>
-    <string name="remainingProgressPlaceholder">You need to drink 2 more cups of water today to reach your goal!</string>
-    <string name="waterClickMessage">Click to add cups!</string>
 </resources>

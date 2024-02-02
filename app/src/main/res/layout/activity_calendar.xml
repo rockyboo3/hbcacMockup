@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/calendarPage"
     tools:context=".CalendarActivity">
 
     <LinearLayout
@@ -45,254 +44,53 @@
             app:tint="@color/iconColor" />
     </LinearLayout>
 
+    <CalendarView
+        android:id="@+id/calendarView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteX="27dp"
+        tools:layout_editor_absoluteY="53dp" />
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="600dp"
-        app:layout_constraintBottom_toTopOf="@id/bottomNav"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <TextView
+        android:id="@+id/howDoYouFeel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="How Do You Feel Today?"
+        tools:layout_editor_absoluteX="129dp"
+        tools:layout_editor_absoluteY="403dp" />
+
+    <TextView
+        android:id="@+id/areYouImproving"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Are You Improving?"
+        tools:layout_editor_absoluteX="145dp"
+        tools:layout_editor_absoluteY="502dp" />
+
+    <EditText
+        android:id="@+id/notes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="text"
+        android:text="Notes...."
+        tools:layout_editor_absoluteX="104dp"
+        tools:layout_editor_absoluteY="600dp" />
+
+    <ToggleButton
+        android:id="@+id/toggleButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ToggleButton"
+        tools:layout_editor_absoluteX="154dp"
+        tools:layout_editor_absoluteY="539dp" />
+
+    <SeekBar
+        android:id="@+id/feelBar"
+        android:layout_width="0dp"
+        android:layout_height="14dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintVertical_bias="0.0">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:orientation="vertical">
-
-            <CalendarView
-                android:id="@+id/calendarView"
-                android:layout_width="wrap_content"
-                android:layout_height="353dp"
-                android:layout_gravity="center"
-                android:layout_marginVertical="0dp" />
-
-            <TextView
-                android:id="@+id/stepCount"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:layout_gravity="left"
-                android:translationX="50dp"
-                android:text="Steps: 0"
-                android:layout_marginVertical="10dp"
-                />
-
-            <ProgressBar
-                android:id="@+id/stepBar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:translationX="200dp"
-                android:translationY="-27dp"
-                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-                />
-            <TextView
-                android:id="@+id/sleepCount"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:layout_gravity="left"
-                android:translationX="50dp"
-                android:text="Sleep: 0 hours"
-                android:layout_marginVertical="10dp"
-                />
-            <ProgressBar
-                android:id="@+id/sleepBar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:translationX="200dp"
-                android:translationY="-27dp"
-                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-                />
-
-            <TextView
-                android:id="@+id/veggiesCount"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:layout_gravity="left"
-                android:translationX="50dp"
-                android:text="Veggies: 0 servings"
-                android:layout_marginVertical="10dp"
-                />
-            <ProgressBar
-                android:id="@+id/veggiesBar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:translationX="200dp"
-                android:translationY="-27dp"
-                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-                />
-
-            <TextView
-                android:id="@+id/waterCount"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:layout_gravity="left"
-                android:translationX="50dp"
-                android:text="Water: 0 oz"
-                android:layout_marginVertical="10dp"
-                />
-            <ProgressBar
-                android:id="@+id/waterBar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:translationX="200dp"
-                android:translationY="-27dp"
-                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-                />
-
-            <TextView
-                android:id="@+id/howDoYouFeel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:translationY="50dp"
-                android:text="How Do You Feel Today?" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:translationY="190dp">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/notes"
-                    android:layout_width="212dp"
-                    android:layout_height="55dp"
-                    android:hint="Notes"
-                    android:backgroundTint="@android:color/transparent"
-                    android:inputType="textLongMessage" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <SeekBar
-                android:id="@+id/feelBar"
-                android:layout_width="350dp"
-                android:layout_height="14dp"
-                android:layout_gravity="center"
-                android:translationY="20dp"
-                tools:progress="50"/>
-            <TextView
-                android:id="@+id/seekBarText"
-                android:layout_width="175dp"
-                android:layout_height="40dp"
-                android:layout_gravity="center"
-                android:translationY="40dp"
-                android:text="Balanced"
-                android:textColor="#FFFF00"
-                android:shadowColor="#BC000000"
-                android:shadowDx=".5"
-                android:shadowDy=".5"
-                android:shadowRadius=".5"
-                android:textAlignment="center"
-                />
-
-            <Button
-                android:id="@+id/saveButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginVertical="100dp"
-                android:translationY="75dp"
-                android:text="Save" />
-
-        </LinearLayout>
-    </ScrollView>
+        tools:layout_editor_absoluteY="457dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <!--
-    <?xml version="1.0" encoding="utf-8"?>
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".CalendarActivity">
-
-        <LinearLayout
-            android:id="@+id/bottomNav"
-            android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:background="@color/white"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
-
-            <ImageView
-                android:id="@+id/calendarImageView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                app:srcCompat="@drawable/ic_calendar_foreground"
-                app:tint="@color/iconColor" />
-
-            <ImageView
-                android:id="@+id/lotusImageView"
-                android:layout_width="120dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:onClick="goMain"
-                android:scaleX="2"
-                android:scaleY="2"
-                android:translationY="5dp"
-                app:srcCompat="@drawable/lotusicon" />
-
-            <ImageView
-                android:id="@+id/settingsImageView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:onClick="goSettings"
-                app:srcCompat="@drawable/ic_settings_foreground"
-                app:tint="@color/iconColor" />
-        </LinearLayout>
-
-        <CalendarView
-            android:id="@+id/calendarView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:layout_editor_absoluteX="27dp"
-            tools:layout_editor_absoluteY="53dp" />
-
-        <TextView
-            android:id="@+id/howDoYouFeel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="How Do You Feel Today?"
-            tools:layout_editor_absoluteX="129dp"
-            tools:layout_editor_absoluteY="403dp" />
-
-        <TextView
-            android:id="@+id/areYouImproving"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Are You Improving?"
-            tools:layout_editor_absoluteX="145dp"
-            tools:layout_editor_absoluteY="502dp" />
-
-        <EditText
-            android:id="@+id/notes"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="text"
-            android:text="Notes...."
-            tools:layout_editor_absoluteX="104dp"
-            tools:layout_editor_absoluteY="600dp" />
-
-        <ToggleButton
-            android:id="@+id/toggleButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="ToggleButton"
-            tools:layout_editor_absoluteX="154dp"
-            tools:layout_editor_absoluteY="539dp" />
-
-        <SeekBar
-            android:id="@+id/feelBar"
-            android:layout_width="0dp"
-            android:layout_height="14dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:layout_editor_absoluteY="457dp" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>-->
