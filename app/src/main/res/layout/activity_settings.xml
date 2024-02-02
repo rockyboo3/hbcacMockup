@@ -203,6 +203,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:onClick="goCalendar"
             app:srcCompat="@drawable/ic_calendar_foreground"
             app:tint="@color/iconColor" />
 
@@ -211,6 +212,7 @@
             android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:onClick="goMain"
             android:scaleX="2"
             android:scaleY="2"
             android:translationY="5dp"
