@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
         sleepProgressBar = findViewById(R.id.sleepProgressBar);
         sleepTextViewProgress = findViewById(R.id.sleepProgressText);
 
-        sleepTextViewProgress.setOnClickListener(new View.OnClickListener() {
+        /*sleepTextViewProgress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (sleepProgress <= 90) {
@@ -91,13 +91,13 @@ public class MainActivity extends AppCompatActivity {
                     updateProgressBar();
                 }
             }
-        });
+        });*/
 
         //Veggies
         veggiesProgressBar = findViewById(R.id.veggiesProgressBar);
         veggiesTextViewProgress = findViewById(R.id.veggiesProgressText);
 
-        veggiesTextViewProgress.setOnClickListener(new View.OnClickListener() {
+        /*veggiesTextViewProgress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (veggiesProgress <= 90) {
@@ -105,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
                     updateProgressBar();
                 }
             }
-        });
+        });*/
 
         updateProgressBar();
     }
@@ -128,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         sleepProgressBar.setProgress(sleepProgress);
-        sleepTextViewProgress.setText("Sleep\n" + sleepProgress + "%\n+");
+        sleepTextViewProgress.setText("Sleep\n" + sleepProgress + "%\n-->");
 
         if(sleepProgress == 100 && sleepFlag){
             activitiesDoneToday++;
@@ -136,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         veggiesProgressBar.setProgress(veggiesProgress);
-        veggiesTextViewProgress.setText("Veggies\n" + veggiesProgress + "%\n+");
+        veggiesTextViewProgress.setText("Veggies\n" + veggiesProgress + "%\n-->");
 
         if(veggiesProgress == 100 && veggiesFlag){
             activitiesDoneToday++;
@@ -159,6 +159,16 @@ public class MainActivity extends AppCompatActivity {
 
     public void goWater(View view){
         Intent intent = new Intent(MainActivity.this,WaterActivity.class);
+        startActivity(intent);
+    }
+
+    public void goSleep(View view){
+        Intent intent = new Intent(MainActivity.this,SleepActivity.class);
+        startActivity(intent);
+    }
+
+    public void goVeggies(View view){
+        Intent intent = new Intent(MainActivity.this,VeggieActivity.class);
         startActivity(intent);
     }
 

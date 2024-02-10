@@ -14,7 +14,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-public class WaterActivity extends AppCompatActivity {
+public class VeggieActivity extends AppCompatActivity {
 
     public int totalPlaceholder = 8; //TEMPORARY --> NEEDS TO BE PULLED FROM SETTINGS
 
@@ -27,21 +27,21 @@ public class WaterActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_water);
+        setContentView(R.layout.activity_veggie);
 
         //*********************************PROGRESS BAR******************************************//
 
-        progressSubpage = findViewById(R.id.waterProgressBarSubPage);
+        progressSubpage = findViewById(R.id.veggieProgressBarSubPage);
         double currentProgress = (double) progressPlaceholder / (double) totalPlaceholder;
         int progressInt = (int) (currentProgress * 100);
         progressSubpage.setProgress(progressInt);
 
-        TextView progressTextSubpage = (TextView) findViewById(R.id.waterProgressTextSubpage);
-        progressTextSubpage.setText("Water\n" + progressInt + "%");
+        TextView progressTextSubpage = (TextView) findViewById(R.id.veggieProgressTextSubpage);
+        progressTextSubpage.setText("Veggies\n" + progressInt + "%");
 
-        //*********************************CUPS******************************************//
+        //*********************************VEGGIES******************************************//
 
-        LinearLayout mainLayout = (LinearLayout) findViewById(R.id.waterRowHolderLinearLayout);
+        LinearLayout mainLayout = (LinearLayout) findViewById(R.id.veggieRowHolderLinearLayout);
 
         int numOfRows;
         boolean remainder = false;
@@ -56,24 +56,24 @@ public class WaterActivity extends AppCompatActivity {
         for(int i = 0; i < numOfRows; i++){
             LayoutInflater inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-            ConstraintLayout threeLayout = (ConstraintLayout) inflater.inflate(R.layout.waterrow3, null);
-            ConstraintLayout twoLayout = (ConstraintLayout) inflater.inflate(R.layout.waterrow2, null);
-            ConstraintLayout oneLayout = (ConstraintLayout) inflater.inflate(R.layout.waterrow1, null);
+            ConstraintLayout threeLayout = (ConstraintLayout) inflater.inflate(R.layout.veggierow3, null);
+            ConstraintLayout twoLayout = (ConstraintLayout) inflater.inflate(R.layout.veggierow2, null);
+            ConstraintLayout oneLayout = (ConstraintLayout) inflater.inflate(R.layout.veggierow1, null);
 
-            if(remainder && i == numOfRows - 1){ //last row if not 3 full cups
+            if(remainder && i == numOfRows - 1){ //last row if not 3 full veggies
                 if(totalPlaceholder % itemsPerRow == 2){
                     if(completedItemsProcessed < progressPlaceholder){
                         if(progressPlaceholder - completedItemsProcessed == 1){
-                            ImageView item = (ImageView) twoLayout.findViewById(R.id.cupImageView1);
-                            item.setImageResource(R.drawable.bluecup);
+                            ImageView item = (ImageView) twoLayout.findViewById(R.id.veggieImageView1);
+                            item.setImageResource(R.drawable.greenveggie);
                             item.setTag("completedItemTag");
                             completedItemsProcessed++;
                         }else{
-                            ImageView item1 = (ImageView) twoLayout.findViewById(R.id.cupImageView1);
-                            item1.setImageResource(R.drawable.bluecup);
+                            ImageView item1 = (ImageView) twoLayout.findViewById(R.id.veggieImageView1);
+                            item1.setImageResource(R.drawable.greenveggie);
                             item1.setTag("completedItemTag");
-                            ImageView item2 = (ImageView) twoLayout.findViewById(R.id.cupImageView2);
-                            item2.setImageResource(R.drawable.bluecup);
+                            ImageView item2 = (ImageView) twoLayout.findViewById(R.id.veggieImageView2);
+                            item2.setImageResource(R.drawable.greenveggie);
                             item2.setTag("completedItemTag");
                             completedItemsProcessed += 2;
                         }
@@ -82,8 +82,8 @@ public class WaterActivity extends AppCompatActivity {
                 }else if(totalPlaceholder % itemsPerRow == 1){
                     if(completedItemsProcessed < progressPlaceholder){
                         if(progressPlaceholder - completedItemsProcessed == 1){
-                            ImageView item = (ImageView) oneLayout.findViewById(R.id.cupImageView1);
-                            item.setImageResource(R.drawable.bluecup);
+                            ImageView item = (ImageView) oneLayout.findViewById(R.id.veggieImageView1);
+                            item.setImageResource(R.drawable.greenveggie);
                             item.setTag("completedItemTag");
                             completedItemsProcessed++;
                         }
@@ -94,20 +94,20 @@ public class WaterActivity extends AppCompatActivity {
                 if (completedItemsProcessed < progressPlaceholder){
                     if(progressPlaceholder - completedItemsProcessed >= 3){
                         for(int j = 1; j <= 3; j++){
-                            String idString = "cupImageView"+j;
+                            String idString = "veggieImageView"+j;
                             int resID = getResources().getIdentifier(idString, "id", getPackageName());
                             ImageView item = (ImageView) threeLayout.findViewById(resID);
-                            item.setImageResource(R.drawable.bluecup);
+                            item.setImageResource(R.drawable.greenveggie);
                             item.setTag("completedItemTag");
                             completedItemsProcessed++;
                         }
                     }else{
                         int completedBeforeRun = completedItemsProcessed;
                         for(int j = 1; j <= progressPlaceholder - completedBeforeRun; j++){
-                            String idString = "cupImageView"+j;
+                            String idString = "veggieImageView"+j;
                             int resID = getResources().getIdentifier(idString, "id", getPackageName());
                             ImageView item = (ImageView) threeLayout.findViewById(resID);
-                            item.setImageResource(R.drawable.bluecup);
+                            item.setImageResource(R.drawable.greenveggie);
                             item.setTag("completedItemTag");
                             completedItemsProcessed++;
                         }
@@ -123,22 +123,22 @@ public class WaterActivity extends AppCompatActivity {
         Log.i("tagCheck", taggedOfClicked);
         if(taggedOfClicked.equals("notCompletedItemTag")){
             ImageView test = (ImageView) view;
-            test.setImageResource(R.drawable.bluecup);
+            test.setImageResource(R.drawable.greenveggie);
         }
     }
 
     public void goSettings(View view){
-        Intent intent = new Intent(WaterActivity.this,SettingsActivity.class);
+        Intent intent = new Intent(VeggieActivity.this,SettingsActivity.class);
         startActivity(intent);
     }
 
     public void goCalendar(View view){
-        Intent intent = new Intent(WaterActivity.this,CalendarActivity.class);
+        Intent intent = new Intent(VeggieActivity.this,CalendarActivity.class);
         startActivity(intent);
     }
 
     public void goMain(View view){
-        Intent intent = new Intent(WaterActivity.this,MainActivity.class);
+        Intent intent = new Intent(VeggieActivity.this,MainActivity.class);
         startActivity(intent);
     }
 

@@ -70,6 +70,7 @@
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:layout_marginLeft="24dp"
+        android:onClick="goSleep"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/waterProgressBar"
         tools:progress="60" />
@@ -92,6 +93,7 @@
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:layout_marginLeft="24dp"
+        android:onClick="goVeggies"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sleepProgressBar"
         tools:progress="60" />

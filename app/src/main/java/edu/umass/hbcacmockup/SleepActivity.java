@@ -14,7 +14,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-public class WaterActivity extends AppCompatActivity {
+public class SleepActivity extends AppCompatActivity {
 
     public int totalPlaceholder = 8; //TEMPORARY --> NEEDS TO BE PULLED FROM SETTINGS
 
@@ -27,21 +27,21 @@ public class WaterActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_water);
+        setContentView(R.layout.activity_sleep);
 
         //*********************************PROGRESS BAR******************************************//
 
-        progressSubpage = findViewById(R.id.waterProgressBarSubPage);
+        progressSubpage = findViewById(R.id.sleepProgressBarSubPage);
         double currentProgress = (double) progressPlaceholder / (double) totalPlaceholder;
         int progressInt = (int) (currentProgress * 100);
         progressSubpage.setProgress(progressInt);
 
-        TextView progressTextSubpage = (TextView) findViewById(R.id.waterProgressTextSubpage);
-        progressTextSubpage.setText("Water\n" + progressInt + "%");
+        TextView progressTextSubpage = (TextView) findViewById(R.id.sleepProgressTextSubpage);
+        progressTextSubpage.setText("Sleep\n" + progressInt + "%");
 
-        //*********************************CUPS******************************************//
+        //*********************************BEDS******************************************//
 
-        LinearLayout mainLayout = (LinearLayout) findViewById(R.id.waterRowHolderLinearLayout);
+        LinearLayout mainLayout = (LinearLayout) findViewById(R.id.sleepRowHolderLinearLayout);
 
         int numOfRows;
         boolean remainder = false;
@@ -56,24 +56,24 @@ public class WaterActivity extends AppCompatActivity {
         for(int i = 0; i < numOfRows; i++){
             LayoutInflater inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-            ConstraintLayout threeLayout = (ConstraintLayout) inflater.inflate(R.layout.waterrow3, null);
-            ConstraintLayout twoLayout = (ConstraintLayout) inflater.inflate(R.layout.waterrow2, null);
-            ConstraintLayout oneLayout = (ConstraintLayout) inflater.inflate(R.layout.waterrow1, null);
+            ConstraintLayout threeLayout = (ConstraintLayout) inflater.inflate(R.layout.sleeprow3, null);
+            ConstraintLayout twoLayout = (ConstraintLayout) inflater.inflate(R.layout.sleeprow2, null);
+            ConstraintLayout oneLayout = (ConstraintLayout) inflater.inflate(R.layout.sleeprow1, null);
 
-            if(remainder && i == numOfRows - 1){ //last row if not 3 full cups
+            if(remainder && i == numOfRows - 1){ //last row if not 3 full beds
                 if(totalPlaceholder % itemsPerRow == 2){
                     if(completedItemsProcessed < progressPlaceholder){
                         if(progressPlaceholder - completedItemsProcessed == 1){
-                            ImageView item = (ImageView) twoLayout.findViewById(R.id.cupImageView1);
-                            item.setImageResource(R.drawable.bluecup);
+                            ImageView item = (ImageView) twoLayout.findViewById(R.id.sleepImageView1);
+                            item.setImageResource(R.drawable.orangebed);
                             item.setTag("completedItemTag");
                             completedItemsProcessed++;
                         }else{
-                            ImageView item1 = (ImageView) twoLayout.findViewById(R.id.cupImageView1);
-                            item1.setImageResource(R.drawable.bluecup);
+                            ImageView item1 = (ImageView) twoLayout.findViewById(R.id.sleepImageView1);
+                            item1.setImageResource(R.drawable.orangebed);
                             item1.setTag("completedItemTag");
-                            ImageView item2 = (ImageView) twoLayout.findViewById(R.id.cupImageView2);
-                            item2.setImageResource(R.drawable.bluecup);
+                            ImageView item2 = (ImageView) twoLayout.findViewById(R.id.sleepImageView2);
+                            item2.setImageResource(R.drawable.orangebed);
                             item2.setTag("completedItemTag");
                             completedItemsProcessed += 2;
                         }
@@ -82,8 +82,8 @@ public class WaterActivity extends AppCompatActivity {
                 }else if(totalPlaceholder % itemsPerRow == 1){
                     if(completedItemsProcessed < progressPlaceholder){
                         if(progressPlaceholder - completedItemsProcessed == 1){
-                            ImageView item = (ImageView) oneLayout.findViewById(R.id.cupImageView1);
-                            item.setImageResource(R.drawable.bluecup);
+                            ImageView item = (ImageView) oneLayout.findViewById(R.id.sleepImageView1);
+                            item.setImageResource(R.drawable.orangebed);
                             item.setTag("completedItemTag");
                             completedItemsProcessed++;
                         }
@@ -94,20 +94,20 @@ public class WaterActivity extends AppCompatActivity {
                 if (completedItemsProcessed < progressPlaceholder){
                     if(progressPlaceholder - completedItemsProcessed >= 3){
                         for(int j = 1; j <= 3; j++){
-                            String idString = "cupImageView"+j;
+                            String idString = "sleepImageView"+j;
                             int resID = getResources().getIdentifier(idString, "id", getPackageName());
                             ImageView item = (ImageView) threeLayout.findViewById(resID);
-                            item.setImageResource(R.drawable.bluecup);
+                            item.setImageResource(R.drawable.orangebed);
                             item.setTag("completedItemTag");
                             completedItemsProcessed++;
                         }
                     }else{
                         int completedBeforeRun = completedItemsProcessed;
                         for(int j = 1; j <= progressPlaceholder - completedBeforeRun; j++){
-                            String idString = "cupImageView"+j;
+                            String idString = "sleepImageView"+j;
                             int resID = getResources().getIdentifier(idString, "id", getPackageName());
                             ImageView item = (ImageView) threeLayout.findViewById(resID);
-                            item.setImageResource(R.drawable.bluecup);
+                            item.setImageResource(R.drawable.orangebed);
                             item.setTag("completedItemTag");
                             completedItemsProcessed++;
                         }
@@ -123,22 +123,22 @@ public class WaterActivity extends AppCompatActivity {
         Log.i("tagCheck", taggedOfClicked);
         if(taggedOfClicked.equals("notCompletedItemTag")){
             ImageView test = (ImageView) view;
-            test.setImageResource(R.drawable.bluecup);
+            test.setImageResource(R.drawable.orangebed);
         }
     }
 
     public void goSettings(View view){
-        Intent intent = new Intent(WaterActivity.this,SettingsActivity.class);
+        Intent intent = new Intent(SleepActivity.this,SettingsActivity.class);
         startActivity(intent);
     }
 
     public void goCalendar(View view){
-        Intent intent = new Intent(WaterActivity.this,CalendarActivity.class);
+        Intent intent = new Intent(SleepActivity.this,CalendarActivity.class);
         startActivity(intent);
     }
 
     public void goMain(View view){
-        Intent intent = new Intent(WaterActivity.this,MainActivity.class);
+        Intent intent = new Intent(SleepActivity.this,MainActivity.class);
         startActivity(intent);
     }
 

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".WaterActivity">
+    tools:context=".SleepActivity">
 
     <TextView
         android:id="@+id/backTextView"
@@ -20,19 +20,19 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/waterHeaderTextView"
+        android:id="@+id/sleepHeaderTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="@string/water"
+        android:text="@string/sleep"
         android:textAlignment="center"
         android:textSize="24sp"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="174dp" />
 
     <ProgressBar
-        android:id="@+id/waterProgressBarSubPage"
-        style="@style/CircularDeterminateProgressBarBlue"
+        android:id="@+id/sleepProgressBarSubPage"
+        style="@style/CircularDeterminateProgressBarOrange"
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:layout_marginTop="36dp"
@@ -42,16 +42,16 @@
         tools:progress="60" />
 
     <TextView
-        android:id="@+id/waterProgressTextSubpage"
+        android:id="@+id/sleepProgressTextSubpage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
         android:textAlignment="center"
         android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@+id/waterProgressBarSubPage"
-        app:layout_constraintEnd_toEndOf="@+id/waterProgressBarSubPage"
-        app:layout_constraintStart_toStartOf="@+id/waterProgressBarSubPage"
-        app:layout_constraintTop_toTopOf="@+id/waterProgressBarSubPage"
+        app:layout_constraintBottom_toBottomOf="@+id/sleepProgressBarSubPage"
+        app:layout_constraintEnd_toEndOf="@+id/sleepProgressBarSubPage"
+        app:layout_constraintStart_toStartOf="@+id/sleepProgressBarSubPage"
+        app:layout_constraintTop_toTopOf="@+id/sleepProgressBarSubPage"
         tools:text="60%" />
 
     <TextView
@@ -63,10 +63,10 @@
         android:textAlignment="center"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/waterHeaderTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/sleepHeaderTextView" />
 
     <TextView
-        android:id="@+id/currentCupsTextView"
+        android:id="@+id/currentBedsTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="36dp"
@@ -81,10 +81,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="36dp"
-        android:text="@string/waterGoalPlaceholder"
+        android:text="@string/sleepGoalPlaceholder"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/currentCupsTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/currentBedsTextView" />
 
     <TextView
         android:id="@+id/remainingProgressSentenceTextView"
@@ -93,7 +93,7 @@
         android:layout_marginStart="36dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="36dp"
-        android:text="@string/waterRemainingProgressPlaceholder"
+        android:text="@string/sleepRemainingProgressPlaceholder"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -106,13 +106,13 @@
         android:layout_marginStart="56dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="56dp"
-        android:background="@color/blueProgressPrimary"
+        android:background="@color/orangeProgressPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/remainingProgressSentenceTextView" />
 
     <ScrollView
-        android:id="@+id/waterScrollView"
+        android:id="@+id/sleepScrollView"
         android:layout_width="match_parent"
         android:layout_height="190dp"
         android:layout_marginStart="36dp"
@@ -123,7 +123,7 @@
         app:layout_constraintTop_toBottomOf="@+id/seperatorTextView">
 
         <LinearLayout
-            android:id="@+id/waterRowHolderLinearLayout"
+            android:id="@+id/sleepRowHolderLinearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -216,10 +216,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp"
-        android:text="@string/waterClickMessage"
+        android:text="@string/sleepClickMessage"
         android:textAlignment="center"
         android:textSize="16sp"
-        app:layout_constraintTop_toBottomOf="@+id/waterScrollView"
+        app:layout_constraintTop_toBottomOf="@+id/sleepScrollView"
         tools:layout_editor_absoluteX="158dp" />
 
     <LinearLayout
