@@ -39,18 +39,18 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         /////////////////////BACKGROUND VIDEO CODE///////////////////////////
-        mVideoView = (VideoView) findViewById(R.id.backgroundVideo);
-
-        Uri uri = Uri.parse("android.resource://"+getPackageName()+"/"+R.raw.bg_video);
-        mVideoView.setVideoURI(uri);
-        mVideoView.start();
-
-        mVideoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener(){
-            @Override
-            public void onPrepared(MediaPlayer mediaPlayer){
-                mediaPlayer.setLooping(true);
-            }
-        });
+//        mVideoView = (VideoView) findViewById(R.id.backgroundVideo);
+//
+//        Uri uri = Uri.parse("android.resource://"+getPackageName()+"/"+R.raw.bg_video);
+//        mVideoView.setVideoURI(uri);
+//        mVideoView.start();
+//
+//        mVideoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener(){
+//            @Override
+//            public void onPrepared(MediaPlayer mediaPlayer){
+//                mediaPlayer.setLooping(true);
+//            }
+//        });
         /////////////////////////////////////////////////////////////////////
 
         //Steps
@@ -160,7 +160,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void goStep(View view){
-        Intent intent = new Intent(MainActivity.this,StepActivity.class);
+        Intent intent = new Intent(MainActivity.this,StepActivity2.class);
         startActivity(intent);
     }
 

@@ -2,6 +2,7 @@ package edu.umass.hbcacmockup;
 
 import android.content.Context;
 import android.content.Intent;
+import android.view.View;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -15,7 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class StepActivity extends AppCompatActivity implements SensorEventListener {
+public class StepActivity2 extends AppCompatActivity implements SensorEventListener {
 
 
     private SensorManager sensorManager;
@@ -38,7 +39,7 @@ public class StepActivity extends AppCompatActivity implements SensorEventListen
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_step);
+        setContentView(R.layout.activity_step2);
 
         //*********************************PROGRESS BAR******************************************//
 
@@ -54,8 +55,6 @@ public class StepActivity extends AppCompatActivity implements SensorEventListen
         if(stepCounterSensor == null){
             stepCounterTextView.setText("Step counter not availible");
         }
-
-
     }
 
     @Override
@@ -74,5 +73,26 @@ public class StepActivity extends AppCompatActivity implements SensorEventListen
     @Override
     public void onAccuracyChanged(Sensor sensor, int i) {
 
+    }
+
+    public void goSettings(View view){
+        Intent intent = new Intent(StepActivity2.this,SettingsActivity.class);
+        startActivity(intent);
+    }
+
+    public void goCalendar(View view){
+        Intent intent = new Intent(StepActivity2.this,CalendarActivity.class);
+        startActivity(intent);
+    }
+
+    public void goMain(View view){
+        Intent intent = new Intent(StepActivity2.this,MainActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        overridePendingTransition(0, 0);
     }
 }
