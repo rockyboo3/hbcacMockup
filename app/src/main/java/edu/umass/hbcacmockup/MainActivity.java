@@ -1,6 +1,8 @@
 package edu.umass.hbcacmockup;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -37,33 +39,33 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         /////////////////////BACKGROUND VIDEO CODE///////////////////////////
-        /*mVideoView = (VideoView) findViewById(R.id.backgroundVideo);
-
-        Uri uri = Uri.parse("android.resource://"+getPackageName()+"/"+R.raw.bg_video);
-        mVideoView.setVideoURI(uri);
-        mVideoView.start();
-
-        mVideoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener(){
-            @Override
-            public void onPrepared(MediaPlayer mediaPlayer){
-                mediaPlayer.setLooping(true);
-            }
-        });*/
+//        mVideoView = (VideoView) findViewById(R.id.backgroundVideo);
+//
+//        Uri uri = Uri.parse("android.resource://"+getPackageName()+"/"+R.raw.bg_video);
+//        mVideoView.setVideoURI(uri);
+//        mVideoView.start();
+//
+//        mVideoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener(){
+//            @Override
+//            public void onPrepared(MediaPlayer mediaPlayer){
+//                mediaPlayer.setLooping(true);
+//            }
+//        });
         /////////////////////////////////////////////////////////////////////
 
         //Steps
         stepsProgressBar = findViewById(R.id.waterProgressBarSubPage);
         stepsTextViewProgress = findViewById(R.id.waterProgressTextSubpage);
 
-        stepsTextViewProgress.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (stepsProgress <= 90) {
-                    stepsProgress += 10;
-                    updateProgressBar();
-                }
-            }
-        });
+//        stepsTextViewProgress.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (stepsProgress <= 90) {
+//                    stepsProgress += 10;
+//                    updateProgressBar();
+//                }
+//            }
+//        });
 
         //Water
         waterProgressBar = findViewById(R.id.waterProgressBar);
@@ -112,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void updateProgressBar() {
         stepsProgressBar.setProgress(stepsProgress);
-        stepsTextViewProgress.setText("Steps\n" + stepsProgress + "%\n+");
+        stepsTextViewProgress.setText("Steps\n" + stepsProgress + "%\n-->");
 
         if(stepsProgress == 100 && stepsFlag){
             activitiesDoneToday++;
@@ -154,6 +156,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void goCalendar(View view){
         Intent intent = new Intent(MainActivity.this,CalendarActivity.class);
+        startActivity(intent);
+    }
+
+    public void goStep(View view){
+        Intent intent = new Intent(MainActivity.this,StepActivity.class);
         startActivity(intent);
     }
 
