@@ -50,7 +50,7 @@ public class StepActivity2 extends AppCompatActivity implements SensorEventListe
         progressSubpage.setMax(stepCountTarget);
 
         if(stepCounterSensor == null){
-            stepCounterTextView.setText("Step counter not availible");
+            stepCounterTextView.setText("Step counter not available");
         }
     }
 
