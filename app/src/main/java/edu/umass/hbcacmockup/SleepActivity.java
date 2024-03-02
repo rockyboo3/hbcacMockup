@@ -31,12 +31,12 @@ public class SleepActivity extends AppCompatActivity {
 
         //*********************************PROGRESS BAR******************************************//
 
-        progressSubpage = findViewById(R.id.sleepProgressBarSubPage);
+        progressSubpage = findViewById(R.id.stepProgressBarSubPage);
         double currentProgress = (double) progressPlaceholder / (double) totalPlaceholder;
         int progressInt = (int) (currentProgress * 100);
         progressSubpage.setProgress(progressInt);
 
-        TextView progressTextSubpage = (TextView) findViewById(R.id.sleepProgressTextSubpage);
+        TextView progressTextSubpage = (TextView) findViewById(R.id.stepProgressTextSubpage);
         progressTextSubpage.setText("Sleep\n" + progressInt + "%");
 
         //*********************************BEDS******************************************//

@@ -21,7 +21,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/sleepHeaderTextView"
+        android:id="@+id/stepHeaderTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -32,7 +32,7 @@
         tools:layout_editor_absoluteX="174dp" />
 
     <ProgressBar
-        android:id="@+id/sleepProgressBarSubPage"
+        android:id="@+id/stepProgressBarSubPage"
         style="@style/CircularDeterminateProgressBarPink"
         android:layout_width="120dp"
         android:layout_height="120dp"
@@ -43,16 +43,16 @@
         tools:progress="60" />
 
     <TextView
-        android:id="@+id/sleepProgressTextSubpage"
+        android:id="@+id/stepProgressTextSubpage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
         android:textAlignment="center"
         android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@+id/sleepProgressBarSubPage"
-        app:layout_constraintEnd_toEndOf="@+id/sleepProgressBarSubPage"
-        app:layout_constraintStart_toStartOf="@+id/sleepProgressBarSubPage"
-        app:layout_constraintTop_toTopOf="@+id/sleepProgressBarSubPage"
+        app:layout_constraintBottom_toBottomOf="@+id/stepProgressBarSubPage"
+        app:layout_constraintEnd_toEndOf="@+id/stepProgressBarSubPage"
+        app:layout_constraintStart_toStartOf="@+id/stepProgressBarSubPage"
+        app:layout_constraintTop_toTopOf="@+id/stepProgressBarSubPage"
         tools:text="60%" />
 
     <TextView
@@ -64,7 +64,7 @@
         android:textAlignment="center"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sleepHeaderTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/stepHeaderTextView" />
 
     <TextView
         android:id="@+id/currentBedsTextView"

@@ -13,9 +13,6 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
 public class StepActivity2 extends AppCompatActivity implements SensorEventListener {
 
 
