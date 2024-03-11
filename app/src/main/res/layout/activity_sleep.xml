@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SleepActivity">
+
+    <TextView
+        android:id="@+id/backTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="22dp"
+        android:onClick="goMain"
+        android:text="@string/back"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/sleepHeaderTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/sleep"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="174dp" />
+
+    <ProgressBar
+        android:id="@+id/sleepProgressBarSubPage"
+        style="@style/CircularDeterminateProgressBarOrange"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="36dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/todayTextView"
+        tools:progress="60" />
+
+    <TextView
+        android:id="@+id/sleepProgressTextSubpage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:textAlignment="center"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/sleepProgressBarSubPage"
+        app:layout_constraintEnd_toEndOf="@+id/sleepProgressBarSubPage"
+        app:layout_constraintStart_toStartOf="@+id/sleepProgressBarSubPage"
+        app:layout_constraintTop_toTopOf="@+id/sleepProgressBarSubPage"
+        tools:text="60%" />
+
+    <TextView
+        android:id="@+id/todayTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:text="@string/today"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sleepHeaderTextView" />
+
+    <TextView
+        android:id="@+id/currentBedsTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="56dp"
+        android:text="@string/numberPlaceholder"
+        android:textSize="60sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/todayTextView" />
+
+    <TextView
+        android:id="@+id/goalSentenceTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:text="@string/sleepGoalPlaceholder"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/currentBedsTextView" />
+
+    <TextView
+        android:id="@+id/remainingProgressSentenceTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="36dp"
+        android:text="@string/sleepRemainingProgressPlaceholder"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/goalSentenceTextView" />
+
+    <TextView
+        android:id="@+id/seperatorTextView"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="56dp"
+        android:background="@color/orangeProgressPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/remainingProgressSentenceTextView" />
+
+    <ScrollView
+        android:id="@+id/sleepScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="190dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="36dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/seperatorTextView">
+
+        <LinearLayout
+            android:id="@+id/sleepRowHolderLinearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!--<LinearLayout
+                android:id="@+id/waterHolder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="72dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/bluecup" />
+
+                <ImageView
+                    android:id="@+id/imageView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="72dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/bluecup" />
+
+                <ImageView
+                    android:id="@+id/imageView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="72dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/bluecup" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/waterHolder2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/imageView5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="72dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/bluecup" />
+
+                <ImageView
+                    android:id="@+id/imageView6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="72dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/bluecup" />
+
+                <ImageView
+                    android:id="@+id/imageView7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="72dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/bluecup" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/waterHolder3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/imageView8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="72dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/greycup" />
+
+                <ImageView
+                    android:id="@+id/imageView9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="72dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/greycup" />
+
+            </LinearLayout>-->
+        </LinearLayout>
+    </ScrollView>
+
+    <TextView
+        android:id="@+id/clickTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:text="@string/sleepClickMessage"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@+id/sleepScrollView"
+        tools:layout_editor_absoluteX="158dp" />
+
+    <LinearLayout
+        android:id="@+id/bottomNav"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageView
+            android:id="@+id/calendarImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="goCalendar"
+            app:srcCompat="@drawable/ic_calendar_foreground"
+            app:tint="@color/iconColor" />
+
+        <ImageView
+            android:id="@+id/lotusImageView"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="goMain"
+            android:scaleX="2"
+            android:scaleY="2"
+            android:translationY="5dp"
+            app:srcCompat="@drawable/lotusicon" />
+
+        <ImageView
+            android:id="@+id/settingsImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="goSettings"
+            app:srcCompat="@drawable/ic_settings_foreground"
+            app:tint="@color/iconColor" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
