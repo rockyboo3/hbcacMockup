@@ -37,6 +37,18 @@
         <activity
             android:name=".HomePage"
             android:exported="false"/>
+        <activity
+            android:name=".SleepActivity"
+            android:exported="false"/>
+        <activity
+            android:name=".StepActivity2"
+            android:exported="false"/>
+        <activity
+            android:name=".VeggieActivity"
+            android:exported="false"/>
+        <activity
+            android:name=".WaterActivity"
+            android:exported="false"/>
     </application>
 
 </manifest>

@@ -89,6 +89,18 @@ public class HomePage extends AppCompatActivity {
             finish();
         }
 
+        setContentView(R.layout.activity_home_page);
+        settings = findViewById(R.id.settingsImageView);
+        calendar = findViewById(R.id.calendarImageView);
+        waterProgressBar = findViewById(R.id.waterProgressBar);
+        waterTextViewProgress = findViewById(R.id.waterProgressText);
+        stepsProgressBar = findViewById(R.id.stepsProgressBar);
+        stepsTextViewProgress = findViewById(R.id.stepsProgressText);
+        sleepProgressBar = findViewById(R.id.sleepProgressBar);
+        sleepTextViewProgress = findViewById(R.id.sleepProgressText);
+        veggiesProgressBar = findViewById(R.id.veggiesProgressBar);
+        veggiesTextViewProgress = findViewById(R.id.veggiesProgressText);
+
         //store current date in a subcollection if not already present in database
         CollectionReference dayCollection = db.collection("users").document(user.getUid()).collection("days");
 
@@ -114,15 +126,19 @@ public class HomePage extends AppCompatActivity {
                         goals.put("food", 0);
                         goals.put("allGoalsMet", false);
                         goals.put("fishAte", 0);
+                        goals.put("sleepMax", 10);
+                        goals.put("veggiesMax", 10);
+                        goals.put("waterMax", 10);
+                        goals.put("stepMax", 10000);
                         db.collection("users").document(user.getUid()).collection("days").document(formattedDate).set(goals);
                     }
                 });
 
-        setContentView(R.layout.activity_home_page);
+
+
         alignProgress(); //match firestore progress with progress bars & textviews
 
         //click to view settings page
-        settings = findViewById(R.id.settingsImageView);
         settings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -133,7 +149,6 @@ public class HomePage extends AppCompatActivity {
         });
 
         //click to view calendar page
-        calendar = findViewById(R.id.calendarImageView);
         calendar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -156,7 +171,7 @@ public class HomePage extends AppCompatActivity {
                 int docNum = task.getResult().size();
                 List<DocumentSnapshot> documents = task.getResult().getDocuments();
 
-                //set to default background if user's account is <3 days old
+                //set to default background if user's account has < 3 days worth of data
                 if (docNum < 3){
                     mVideoView = findViewById(R.id.bgVideoView);
                     currentBgUri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.bg_video);
@@ -233,14 +248,15 @@ public class HomePage extends AppCompatActivity {
         });
         /////////////////////////////////////////////////////////////////////
 
+
         feedFish(); //feed fish button
 
         //Steps
-        stepsProgressBar = findViewById(R.id.stepsProgressBar);
-        stepsTextViewProgress = findViewById(R.id.stepsProgressText);
         stepsTextViewProgress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                goStep(null);
+                /*
                 if (stepsProgress <= 90) {
                     stepsProgress += 10;
                     updateProgressBar();
@@ -249,16 +265,16 @@ public class HomePage extends AppCompatActivity {
                     DocumentReference stepRef = db.collection("users").document(user.getUid()).collection("days").document(formattedDate);
                     stepRef.update("steps", FieldValue.increment(1000));
                 }
+                */
             }
         });
 
         //Water
-        waterProgressBar = findViewById(R.id.waterProgressBar);
-        waterTextViewProgress = findViewById(R.id.waterProgressText);
-
         waterTextViewProgress.setOnClickListener(new View.OnClickListener() {
             @Override
+
             public void onClick(View v) {
+                /*
                 if (waterProgress <= 90) {
                     waterProgress += 10;
                     updateProgressBar();
@@ -267,16 +283,19 @@ public class HomePage extends AppCompatActivity {
                     DocumentReference stepRef = db.collection("users").document(user.getUid()).collection("days").document(formattedDate);
                     stepRef.update("water", FieldValue.increment(1));
                 }
+                */
+                goWater(null);
             }
         });
 
         //Sleep
-        sleepProgressBar = findViewById(R.id.sleepProgressBar);
-        sleepTextViewProgress = findViewById(R.id.sleepProgressText);
 
         sleepTextViewProgress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                goSleep(null);
+            }
+                /*
                 if (sleepProgress <= 90) {
                     sleepProgress += 10;
                     updateProgressBar();
@@ -286,15 +305,15 @@ public class HomePage extends AppCompatActivity {
                     stepRef.update("sleep", FieldValue.increment(1));
                 }
             }
+            */
         });
 
         //Veggies
-        veggiesProgressBar = findViewById(R.id.veggiesProgressBar);
-        veggiesTextViewProgress = findViewById(R.id.veggiesProgressText);
-
         veggiesTextViewProgress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                goVeggies(null);
+                /*
                 if (veggiesProgress <= 90) {
                     veggiesProgress += 10;
                     updateProgressBar();
@@ -302,6 +321,8 @@ public class HomePage extends AppCompatActivity {
                     DocumentReference stepRef = db.collection("users").document(user.getUid()).collection("days").document(formattedDate);
                     stepRef.update("veggies", FieldValue.increment(1));
                 }
+
+                 */
             }
         });
         updateProgressBar();
@@ -374,6 +395,7 @@ public class HomePage extends AppCompatActivity {
         }
 
     //aligning firestore data with progress bars
+
     private void alignProgress() {
         DocumentReference dateRef = db.collection("users").document(user.getUid()).collection("days").document(formattedDate);
 
@@ -460,7 +482,8 @@ public class HomePage extends AppCompatActivity {
     }
 
     //feed fish button
-    private void feedFish(){
+
+    private void feedFish() {
         Button feed = findViewById(R.id.feedButton);
         VideoView bgVideo = findViewById(R.id.bgVideoView);
         feed.setOnClickListener(new View.OnClickListener() {
@@ -498,8 +521,7 @@ public class HomePage extends AppCompatActivity {
                                     }
                                 });
                             });
-                        }
-                        else{
+                        } else {
                             Toast.makeText(HomePage.this, "Not enough food", Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -507,6 +529,37 @@ public class HomePage extends AppCompatActivity {
             }
         });
     }
+
+    //switch to subpage views
+    public void goStep(View view){
+        Intent intent = new Intent(HomePage.this,StepActivity2.class);
+        startActivity(intent);
+    }
+
+    public void goWater(View view){
+        Intent intent = new Intent(HomePage.this,WaterActivity.class);
+        startActivity(intent);
+    }
+
+    public void goSleep(View view){
+        Intent intent = new Intent(HomePage.this,SleepActivity.class);
+        startActivity(intent);
+    }
+
+    public void goVeggies(View view){
+        Intent intent = new Intent(HomePage.this,VeggieActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        overridePendingTransition(0, 0);
+    }
+
+
+
+
 
     //updates 'Today:' and 'Food Available:' texts
     private void updateTextView(){

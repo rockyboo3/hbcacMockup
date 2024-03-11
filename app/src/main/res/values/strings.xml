@@ -1,7 +1,38 @@
 <resources>
-    <string name="app_name">hbcacMockup</string>
-    <string name="feed">FEED</string>
-    <string name="foodAvail">Food Available: 5</string>
-    <string name="todayProgress">Today: </string>
     <string name="logout">Logout</string>
+        <string name="app_name">hbcacMockup</string>
+        <string name="feed">FEED</string>
+        <string name="foodAvail">Food Available: 5</string>
+        <string name="todayProgress">Today: </string>
+
+        <string name="water"><b>Water</b></string>
+        <string name="sleep"><b>Sleep</b></string>
+        <string name="veggies"><b>Veggies</b></string>
+
+        <string name="back"><![CDATA[< Back]]></string>
+        <string name="today">Today</string>
+        <string name="numberPlaceholder"><b>6</b></string>
+
+        <string name="waterGoalPlaceholder">of 8 cups of water</string>
+        <string name="waterRemainingProgressPlaceholder">You need to drink 2 more cups of water today to reach your goal!</string>
+        <string name="waterClickMessage">Click to add cups!</string>
+        <string name="cupTag">notCompletedItemTag</string>
+
+        <string name="sleepGoalPlaceholder">of 8 hours of sleep</string>
+        <string name="sleepRemainingProgressPlaceholder">You need to sleep 2 more hours today to reach your goal!</string>
+        <string name="sleepClickMessage">Click to add hours of sleep!</string>
+        <string name="bedTag">notCompletedItemTag</string>
+
+        <string name="veggiesGoalPlaceholder">of 8 cups of vegetables</string>
+        <string name="veggiesRemainingProgressPlaceholder">You need to each 2 more cups of vegetables to reach your goal!</string>
+        <string name="veggiesClickMessage">Click to add cups of vegetables!</string>
+        <string name="veggieTag">notCompletedItemTag</string>
+        <string name="steps"><b>Steps</b></string>
+        <string name="stepNumberPlaceholder"><b>7,500</b></string>
+        <string name="stepGoalPlaceholder">of 10,000 steps</string>
+        <string name="stepRemainingProgressPlaceholder">You need to walk 2,500 more steps today to reach your goal!</string>
+        <string name="youvewalked">You\'ve walked</string>
+        <string name="stepsSinceLastLoginPlaceholder"><b>200</b></string>
+        <string name="stepsSentence">steps</string>
+        <string name="sincelastlogin">since last login!</string>
 </resources>
