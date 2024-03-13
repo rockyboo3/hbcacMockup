@@ -98,7 +98,6 @@ public class CalendarActivity extends AppCompatActivity {
         veggiesBar = findViewById(R.id.veggiesBar);
         waterBar = findViewById(R.id.waterBar);
 
-
         //set stress bar max & default values
         stressBar.setMax(4);
         stressBar.setProgress(2);
@@ -152,7 +151,6 @@ public class CalendarActivity extends AppCompatActivity {
                                 waterBar.setProgress(waterTemp);
                                 int veggiesTemp = (int) (task.getResult().getLong("veggies") * 10);
                                 veggiesBar.setProgress(veggiesTemp);
-
 
                                 //set notes
                                 editTextNotes.setText(task.getResult().getString("dailyNotes"));
