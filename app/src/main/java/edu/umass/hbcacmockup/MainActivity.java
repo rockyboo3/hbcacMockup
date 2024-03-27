@@ -12,21 +12,21 @@ import android.widget.VideoView;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
-    private int stepsProgress = 0;
+    private int exerciseProgress = 0;
     private int waterProgress = 0;
     private int sleepProgress = 0;
     private int veggiesProgress = 0;
     private int activitiesDoneToday = 0;
 
-    private boolean stepsFlag = true;
+    private boolean exerciseFlag = true;
     private boolean waterFlag = true;
     private boolean sleepFlag = true;
     private boolean veggiesFlag = true;
-    private ProgressBar stepsProgressBar;
+    private ProgressBar exerciseProgressBar;
     private ProgressBar waterProgressBar;
     private ProgressBar sleepProgressBar;
     private ProgressBar veggiesProgressBar;
-    private TextView stepsTextViewProgress;
+    private TextView exerciseTextViewProgress;
     private TextView waterTextViewProgress;
     private TextView sleepTextViewProgress;
     private TextView veggiesTextViewProgress;
@@ -53,15 +53,15 @@ public class MainActivity extends AppCompatActivity {
 //        });
         /////////////////////////////////////////////////////////////////////
 
-        //Steps
-        stepsProgressBar = findViewById(R.id.waterProgressBarSubPage);
-        stepsTextViewProgress = findViewById(R.id.waterProgressTextSubpage);
+        //Exercise
+        exerciseProgressBar = findViewById(R.id.waterProgressBarSubPage);
+        exerciseTextViewProgress = findViewById(R.id.waterProgressTextSubpage);
 
-//        stepsTextViewProgress.setOnClickListener(new View.OnClickListener() {
+//        exerciseTextViewProgress.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
-//                if (stepsProgress <= 90) {
-//                    stepsProgress += 10;
+//                if (exerciseProgress <= 90) {
+//                    exerciseProgress += 10;
 //                    updateProgressBar();
 //                }
 //            }
@@ -113,12 +113,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void updateProgressBar() {
-        stepsProgressBar.setProgress(stepsProgress);
-        stepsTextViewProgress.setText("Steps\n" + stepsProgress + "%\n-->");
+        exerciseProgressBar.setProgress(exerciseProgress);
+        exerciseTextViewProgress.setText("Exercise\n" + exerciseProgress + "%\n-->");
 
-        if(stepsProgress == 100 && stepsFlag){
+        if(exerciseProgress == 100 && exerciseFlag){
             activitiesDoneToday++;
-            stepsFlag = false;
+            exerciseFlag = false;
         }
 
         waterProgressBar.setProgress(waterProgress);
@@ -159,8 +159,8 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void goStep(View view){
-        Intent intent = new Intent(MainActivity.this,StepActivity2.class);
+    public void goExercise(View view){
+        Intent intent = new Intent(MainActivity.this,ExerciseActivity.class);
         startActivity(intent);
     }
 

@@ -23,7 +23,7 @@
     <string name="bedTag">notCompletedItemTag</string>
 
     <string name="veggiesGoalPlaceholder">of 8 cups of vegetables</string>
-    <string name="veggiesRemainingProgressPlaceholder">You need to each 2 more cups of vegetables to reach your goal!</string>
+    <string name="veggiesRemainingProgressPlaceholder">You need to eat 2 more cups of vegetables to reach your goal!</string>
     <string name="veggiesClickMessage">Click to add cups of vegetables!</string>
     <string name="veggieTag">notCompletedItemTag</string>
     <string name="steps"><b>Steps</b></string>
@@ -34,4 +34,9 @@
     <string name="stepsSinceLastLoginPlaceholder"><b>200</b></string>
     <string name="stepsSentence">steps</string>
     <string name="sincelastlogin">since last login!</string>
+    <string name="exercise"><b>Exercise</b></string>
+    <string name="exerciseRemainingProgressPlaceholder">You need to exercise 60 more minutes to reach your goal!</string>
+    <string name="exerciseNumberPlaceholder"><b>30</b></string>
+    <string name="exerciseGoalPlaceholder">of 90 minutes of exercise</string>
+    <string name="exerciseClickMessage">Click to add 30 minutes of exercise!</string>
 </resources>
